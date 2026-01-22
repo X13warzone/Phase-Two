@@ -6,6 +6,7 @@ var action: ACTION = ACTION.WALK
 
 
 @onready var melee_combo_timer: Timer = $MeleeComboTimer
+@onready var magic_pool_timer: Timer = $MagicPoolTimer
 @onready var hp_bar: TextureProgressBar = $CanvasLayer/HPBar
 @onready var attack_player: AnimationPlayer = $AttackHitbox/AttackPlayer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -50,8 +51,10 @@ func _process(delta: float) -> void:
 	$AttackHitbox.rotation = (position.angle_to_point(get_viewport().get_mouse_position()))
 
 	do_melee_next = false
-	if Input.is_action_pressed("skill_1"):
-		attack_magic_pool()
+	if Input.is_action_pressed("skill_1") and unlock_magic_pool:
+		if magic_pool_timer.is_stopped():
+			magic_pool_timer.start(7)
+			attack_magic_pool()
 	elif Input.is_action_pressed("attack"):
 		if melee_combo_timer.is_stopped():
 			attack_melee_sweep(1)
