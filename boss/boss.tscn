@@ -1,0 +1,522 @@
+[gd_scene load_steps=28 format=3 uid="uid://cbbremwv48hjp"]
+
+[ext_resource type="Script" uid="uid://b61qtanarum40" path="res://boss/boss.gd" id="1_b105h"]
+[ext_resource type="Texture2D" uid="uid://b5jeqkcsryfjk" path="res://assets/sprites/Boss/boss1.png" id="2_270ai"]
+[ext_resource type="Texture2D" uid="uid://nnd5n7yeaqeb" path="res://assets/sprites/HealthBar/hp_bar_border.png" id="2_yy71b"]
+[ext_resource type="Texture2D" uid="uid://dt7pq2cbkfq4i" path="res://assets/sprites/HealthBar/hp_bar_bar.png" id="3_270ai"]
+[ext_resource type="Script" uid="uid://c8v1tvaoq28pm" path="res://boss/level_up_menu.gd" id="5_205ta"]
+[ext_resource type="Texture2D" uid="uid://dkucu55uqcou8" path="res://assets/sprites/Boss/melee_sweep.png" id="5_hcu6l"]
+[ext_resource type="Texture2D" uid="uid://bv2tjsjwuyib0" path="res://assets/sprites/Boss/melee_stab.png" id="5_ti23b"]
+[ext_resource type="Texture2D" uid="uid://35j2f3m84akq" path="res://assets/sprites/purple_grad_square.png" id="6_3bina"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcu6l"]
+atlas = ExtResource("2_270ai")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_glpsb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcu6l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b105h"]
+radius = 46.0
+height = 92.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b105h"]
+size = Vector2(106, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_naudl"]
+atlas = ExtResource("5_ti23b")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w25r"]
+atlas = ExtResource("5_ti23b")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yerig"]
+atlas = ExtResource("5_ti23b")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfjv4"]
+atlas = ExtResource("5_ti23b")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y10lg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_naudl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6w25r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yerig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfjv4")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ti23b"]
+atlas = ExtResource("5_hcu6l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glpsb"]
+atlas = ExtResource("5_hcu6l")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_205ta"]
+atlas = ExtResource("5_hcu6l")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bina"]
+atlas = ExtResource("5_hcu6l")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_naudl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ti23b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glpsb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_205ta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bina")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="Animation" id="Animation_hcu6l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.7853982]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(58, -3.8146973e-06)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AttackHitbox/MeleeStab/AnimatedSprite2D:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AttackHitbox/MeleeStab/AnimatedSprite2D:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bh0xc"]
+resource_name = "melee_stab"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackHitbox/MeleeStab/AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackHitbox/MeleeStab/AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6w25r"]
+resource_name = "melee_sweep"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.7853982]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(58, -3.8146973e-06)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ti23b"]
+resource_name = "melee_sweep2"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.3561945]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(57, 3.8146973e-06)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yerig"]
+_data = {
+&"RESET": SubResource("Animation_hcu6l"),
+&"melee_stab": SubResource("Animation_bh0xc"),
+&"melee_sweep1": SubResource("Animation_6w25r"),
+&"melee_sweep2": SubResource("Animation_ti23b")
+}
+
+[node name="Boss" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 65
+script = ExtResource("1_b105h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_glpsb")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_b105h")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HPBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = 426.0
+offset_top = 20.0
+offset_right = 526.0
+offset_bottom = 35.0
+scale = Vector2(3, 3)
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 6
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("2_yy71b")
+texture_progress = ExtResource("3_270ai")
+tint_progress = Color(0.88235295, 0.09411765, 0.15294118, 1)
+
+[node name="LevelUpMenu" type="Control" parent="CanvasLayer"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_205ta")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/LevelUpMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/LevelUpMenu/CenterContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Increase Attack Damageeeeeeeeeeeeee"
+flat = true
+autowrap_mode = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+texture = ExtResource("6_3bina")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="Button2" type="Button" parent="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Increase Attack Damageeeeeeeeeeeeee"
+flat = true
+autowrap_mode = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button2"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+texture = ExtResource("6_3bina")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="Button3" type="Button" parent="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Increase Attack Damageeeeeeeeeeeeee"
+flat = true
+autowrap_mode = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button3"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+texture = ExtResource("6_3bina")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="AttackHitbox" type="Node2D" parent="."]
+
+[node name="MeleeStab" type="Area2D" parent="AttackHitbox"]
+collision_layer = 32
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox/MeleeStab"]
+position = Vector2(73, -0.5)
+shape = SubResource("RectangleShape2D_b105h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AttackHitbox/MeleeStab"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(73, 2.999997)
+scale = Vector2(6.6249995, 6.6249995)
+sprite_frames = SubResource("SpriteFrames_y10lg")
+
+[node name="MeleeSweep" type="Area2D" parent="AttackHitbox"]
+collision_layer = 32
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="AttackHitbox/MeleeSweep"]
+polygon = PackedVector2Array(0, 0, 70, -50, 90, 0, 70, 50)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AttackHitbox/MeleeSweep"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(58, -3.8146973e-06)
+rotation = 0.7853982
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_naudl")
+flip_h = true
+
+[node name="AttackPlayer" type="AnimationPlayer" parent="AttackHitbox"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_yerig")
+}
+
+[node name="MeleeComboTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button" to="CanvasLayer/LevelUpMenu" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button2" to="CanvasLayer/LevelUpMenu" method="_on_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button3" to="CanvasLayer/LevelUpMenu" method="_on_button_3_pressed"]

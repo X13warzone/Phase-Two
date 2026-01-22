@@ -1,0 +1,109 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1ll852wvjskf"]
+
+[ext_resource type="Script" uid="uid://dolfuso1kfihs" path="res://main_menu/main_menu.gd" id="1_oa53l"]
+[ext_resource type="AudioStream" uid="uid://bmopxxsgjnnjp" path="res://assets/sounds/NotJamMusicPack_ogg/Loopable_ogg/SwitchWithMeTheme_Loopable.ogg" id="2_d3a7t"]
+
+[node name="MainMenu" type="Node"]
+script = ExtResource("1_oa53l")
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_d3a7t")
+
+[node name="MenuButtons" type="CenterContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuButtons"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="MenuButtons/VBoxContainer"]
+layout_mode = 2
+text = "START"
+
+[node name="OptionsButton" type="Button" parent="MenuButtons/VBoxContainer"]
+layout_mode = 2
+text = "OPTIONS"
+
+[node name="CreditsButton" type="Button" parent="MenuButtons/VBoxContainer"]
+layout_mode = 2
+text = "CREDITS"
+
+[node name="ExitButton" type="Button" parent="MenuButtons/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "EXIT*"
+
+[node name="OptionsMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="OptionsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/CenterContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsMenu/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "SOUND"
+
+[node name="HSlider" type="HSlider" parent="OptionsMenu/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="OptionsMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsMenu/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "MUSIC"
+
+[node name="HSlider" type="HSlider" parent="OptionsMenu/CenterContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="OptionsMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsMenu/CenterContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "MUSIC"
+
+[node name="HSlider" type="HSlider" parent="OptionsMenu/CenterContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="OptionsBackButton" type="Button" parent="OptionsMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "BACK"
+
+[node name="CreditsMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="pressed" from="MenuButtons/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuButtons/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MenuButtons/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="MenuButtons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="OptionsMenu/CenterContainer/VBoxContainer/OptionsBackButton" to="." method="_on_options_back_button_pressed"]

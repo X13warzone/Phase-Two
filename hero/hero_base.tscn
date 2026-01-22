@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfuvo2lw0hmk1"]
+
+[ext_resource type="Script" uid="uid://1gk34uvm6s0p" path="res://hero/hero.gd" id="1_7id2n"]
+[ext_resource type="Texture2D" uid="uid://nnd5n7yeaqeb" path="res://assets/sprites/HealthBar/hp_bar_border.png" id="2_m731h"]
+[ext_resource type="Texture2D" uid="uid://dt7pq2cbkfq4i" path="res://assets/sprites/HealthBar/hp_bar_bar.png" id="3_34u6d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1delc"]
+radius = 16.0
+height = 34.0
+
+[node name="HeroBase" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 37
+motion_mode = 1
+script = ExtResource("1_7id2n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_1delc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+
+[node name="KBTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HPBar" type="TextureProgressBar" parent="."]
+offset_left = -16.0
+offset_top = -42.0
+offset_right = 16.0
+offset_bottom = -28.0
+value = 100.0
+texture_under = ExtResource("2_m731h")
+texture_progress = ExtResource("3_34u6d")
+tint_under = Color(1, 1, 0, 1)
+tint_progress = Color(0, 1, 0, 1)
+
+[node name="ChannelBar" type="TextureProgressBar" parent="."]
+visible = false
+offset_left = -14.0
+offset_top = -26.0
+offset_right = 14.0
+offset_bottom = -20.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_m731h")
+texture_progress = ExtResource("3_34u6d")
+tint_under = Color(0.28235295, 0.26666668, 0.29411766, 1)
+tint_progress = Color(1, 1, 0, 1)
+
+[node name="Projectiles" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 65
+
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
+[connection signal="timeout" from="KBTimer" to="." method="_on_kb_timer_timeout"]

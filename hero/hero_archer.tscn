@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://cpxrby6obum3p"]
+
+[ext_resource type="PackedScene" uid="uid://bfuvo2lw0hmk1" path="res://hero/hero_base.tscn" id="1_xcdve"]
+[ext_resource type="Texture2D" uid="uid://b2d5lpbcfvwnt" path="res://assets/sprites/Heroes/archer1.png" id="2_na2bk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87pxi"]
+atlas = ExtResource("2_na2bk")
+region = Rect2(0, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_buml1"]
+atlas = ExtResource("2_na2bk")
+region = Rect2(16, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n27f"]
+atlas = ExtResource("2_na2bk")
+region = Rect2(32, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olg1k"]
+atlas = ExtResource("2_na2bk")
+region = Rect2(48, 0, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8dr4d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87pxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_buml1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n27f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olg1k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="HeroArcher" instance=ExtResource("1_xcdve")]
+job = 3
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_8dr4d")
