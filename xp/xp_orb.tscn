@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bduuv23hqfpxm"]
+
+[ext_resource type="Script" uid="uid://bvvhyy7yimgip" path="res://xp/xp_orb.gd" id="1_14ybx"]
+[ext_resource type="Texture2D" uid="uid://cqcpe3c61717q" path="res://assets/sprites/xp_orb.png" id="2_xce7u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fb8i0"]
+
+[node name="XPOrb" type="Node2D"]
+script = ExtResource("1_14ybx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_xce7u")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_fb8i0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

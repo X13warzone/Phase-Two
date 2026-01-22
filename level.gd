@@ -4,6 +4,7 @@ extends Node
 @onready var fps_label: Label = $CanvasLayer/FPSLabel
 @onready var score_1_label: Label = $CanvasLayer/Score1Label
 @onready var hero_party: Node2D = $HeroParty
+@onready var boss: CharacterBody2D = $Boss
 
 
 const HERO_MAGE = preload("res://hero/hero_mage.tscn")
@@ -74,7 +75,7 @@ func get_random_loc() -> Vector2:
 
 
 func spawn_wave() -> void:
-	print_debug("Spawn wave: %d" % wave)
+	boss.curr_hp += boss.HP_REGEN
 	if WAVES.get(wave, 0):
 		heroes_alive = WAVES[wave][0] + WAVES[wave][1] + WAVES[wave][2] + WAVES[wave][3]
 		for hero in WAVES[wave][0]:

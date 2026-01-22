@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Entity
 class_name Hero
 
 
@@ -10,10 +10,8 @@ enum JOB {
 }
 enum ACTION {RETREAT, ATTACK, FORWARD, HEAL, REGROUP, STUNNED, CHANNEL}
 
-
 @export var SPEED: float = 100.0
 @export var job: JOB
-@export var MAX_HP: int = 10
 
 
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
@@ -26,28 +24,18 @@ enum ACTION {RETREAT, ATTACK, FORWARD, HEAL, REGROUP, STUNNED, CHANNEL}
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
 
 
+const XP_ORB = preload("res://xp/xp_orb.tscn")
+
+
 var action: ACTION = ACTION.FORWARD
 
 
-var curr_hp: int = MAX_HP:
-	set(new_hp):
-		curr_hp = new_hp
-		if curr_hp <= 0:
-			GlobalScript.heroes_slain += 1
-			alive = false
-			queue_free()
-		hp_bar.value = curr_hp * 100.0 / MAX_HP
-		
 var alive: bool = true
 
 
 var move_target: Vector2
 
 var boss_in_range: Node
-
-
-func _ready() -> void:
-	curr_hp = MAX_HP
 
 
 func _process(delta: float) -> void:
@@ -77,8 +65,9 @@ func take_knockback(dir: Vector2, strength: float) -> void:
 	kb_timer.start(0.1)
 
 
-func take_hit(dmg: int) -> void:
-	curr_hp -= dmg
+func take_hit(dmg: float, dmg_type: DMG_TYPE) -> void:
+	super.take_hit(dmg, dmg_type)
+	hp_bar.value = curr_hp * 100.0 / MAX_HP
 
 
 func raycast_to_boss() -> bool:
@@ -92,6 +81,15 @@ func raycast_to_boss() -> bool:
 func attack() -> void:
 	if boss_in_range:
 		pass
+
+
+func die() -> void:
+	var c = XP_ORB.instantiate()
+	add_sibling(c)
+	c.position = position
+	GlobalScript.heroes_slain += 1
+	alive = false
+	queue_free()
 
 
 func _on_attack_range_body_entered(body: Node2D) -> void:

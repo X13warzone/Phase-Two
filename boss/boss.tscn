@@ -358,6 +358,7 @@ _data = {
 collision_layer = 2
 collision_mask = 65
 script = ExtResource("1_b105h")
+MAX_HP = 100.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(6, 6)
@@ -386,6 +387,7 @@ tint_progress = Color(0.88235295, 0.09411765, 0.15294118, 1)
 
 [node name="LevelUpMenu" type="Control" parent="CanvasLayer"]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -409,7 +411,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Increase Attack Damageeeeeeeeeeeeee"
 flat = true
 autowrap_mode = 3
 
@@ -477,6 +478,25 @@ patch_margin_top = 4
 patch_margin_right = 4
 patch_margin_bottom = 4
 
+[node name="StatDisplay" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/StatDisplay"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 428.0
+offset_right = 96.0
+offset_bottom = 633.0
+text = "MAX HP:
+REGEN:
+PHYS DEF:
+MAG DEF:
+PHYS DMG:
+MAG DMG:
+SKILL 1:
+SKILL 2:"
+
 [node name="AttackHitbox" type="Node2D" parent="."]
 
 [node name="MeleeStab" type="Area2D" parent="AttackHitbox"]
@@ -517,6 +537,7 @@ libraries = {
 [node name="MeleeComboTimer" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="level_up_option_selected" from="CanvasLayer/LevelUpMenu" to="." method="_on_level_up_menu_level_up_option_selected"]
 [connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button" to="CanvasLayer/LevelUpMenu" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button2" to="CanvasLayer/LevelUpMenu" method="_on_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button3" to="CanvasLayer/LevelUpMenu" method="_on_button_3_pressed"]
