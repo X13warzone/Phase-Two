@@ -13,12 +13,12 @@ var action: ACTION = ACTION.WALK
 @onready var stat_label: Label = $CanvasLayer/StatDisplay/Label
 
 
+const MAGIC_POOL = preload("res://projectile/magic_pool.tscn")
+
+
 var SPEED = 150.0
 
 var HP_REGEN: int = 0
-
-var melee_damage: int = 1
-var magic_damage: int = 1
 
 var melee_combo_step: int = 0
 var do_melee_next: bool = false
@@ -51,7 +51,7 @@ func _process(delta: float) -> void:
 
 	do_melee_next = false
 	if Input.is_action_pressed("skill_1"):
-		pass
+		attack_magic_pool()
 	elif Input.is_action_pressed("attack"):
 		if melee_combo_timer.is_stopped():
 			attack_melee_sweep(1)
@@ -92,7 +92,7 @@ func attack_melee_stab() -> void:
 	attack_player.play("melee_stab")
 	for b in $AttackHitbox/MeleeStab.get_overlapping_bodies():
 		if b.alive:
-			b.take_hit(melee_damage * 2)
+			b.take_hit(melee_damage * 2, DMG_TYPE.PHYS)
 
 
 func attack_melee_sweep(frameset: int = 1) -> void:
@@ -100,11 +100,15 @@ func attack_melee_sweep(frameset: int = 1) -> void:
 	for b in $AttackHitbox/MeleeSweep.get_overlapping_bodies():
 		if b.alive:
 			b.take_knockback(b.position - position, 70)
-			b.take_hit(melee_damage)
+			b.take_hit(melee_damage, DMG_TYPE.PHYS)
 
 
-func ranged_grasp_pool() -> void:
-	pass
+func attack_magic_pool() -> void:
+	var c = MAGIC_POOL.instantiate()
+	add_child(c)
+	c.position = get_viewport().get_mouse_position()
+	
+	
 
 
 func summon_skeletons() -> void:
@@ -213,6 +217,7 @@ func _on_level_up_menu_level_up_option_selected(option_num: int) -> void:
 	match upgrade_code:
 		"MAXHP":
 			MAX_HP += upgrade_value
+			curr_hp += upgrade_value
 		"REGEN":
 			HP_REGEN += upgrade_value
 		"PYDEF":

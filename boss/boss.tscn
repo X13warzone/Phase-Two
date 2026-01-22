@@ -537,6 +537,8 @@ libraries = {
 [node name="MeleeComboTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="MagicPoolTimer" type="Timer" parent="."]
+
 [connection signal="level_up_option_selected" from="CanvasLayer/LevelUpMenu" to="." method="_on_level_up_menu_level_up_option_selected"]
 [connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button" to="CanvasLayer/LevelUpMenu" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button2" to="CanvasLayer/LevelUpMenu" method="_on_button_2_pressed"]

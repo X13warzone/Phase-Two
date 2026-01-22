@@ -14,4 +14,4 @@ func _process(delta: float) -> void:
 
 func attack() -> void:
 	if boss_in_range and !raycast_to_boss():
-		boss_in_range.take_hit(2.0)
+		boss_in_range.take_hit(2.0, DMG_TYPE.PHYS)
