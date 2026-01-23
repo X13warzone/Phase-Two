@@ -53,3 +53,7 @@ func _on_button_3_pressed() -> void:
 	options_set = 0
 	get_tree().paused = false
 	emit_signal("level_up_option_selected", 2)
+
+
+func _on_restart_button_pressed() -> void:
+	pass # Replace with function body.

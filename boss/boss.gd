@@ -12,6 +12,9 @@ var action: ACTION = ACTION.WALK
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var level_up_menu: Control = $CanvasLayer/LevelUpMenu
 @onready var stat_label: Label = $CanvasLayer/StatDisplay/Label
+@onready var mace_sweep_sfx: AudioStreamPlayer = $AttackHitbox/MaceSweepSFX
+@onready var mace_hit_sfx: AudioStreamPlayer = $AttackHitbox/MaceHitSFX
+@onready var death_menu: CenterContainer = $CanvasLayer/DeathMenu
 
 
 const MAGIC_POOL = preload("res://projectile/magic_pool.tscn")
@@ -57,8 +60,8 @@ func _process(delta: float) -> void:
 			attack_magic_pool()
 	elif Input.is_action_pressed("attack"):
 		if melee_combo_timer.is_stopped():
-			attack_melee_sweep(1)
 			melee_combo_step = 0
+			do_melee_attack()
 			melee_combo_timer.start(2.0)
 		elif melee_combo_timer.time_left <= 1.6 and Input.is_action_just_pressed("attack"):
 			do_melee_next = true
@@ -99,19 +102,22 @@ func attack_melee_stab() -> void:
 
 
 func attack_melee_sweep(frameset: int = 1) -> void:
+	var enemies_hit = 0
 	attack_player.play("melee_sweep%d" % frameset)
+	mace_sweep_sfx.play()
 	for b in $AttackHitbox/MeleeSweep.get_overlapping_bodies():
 		if b.alive:
+			enemies_hit += 1
 			b.take_knockback(b.position - position, 70)
 			b.take_hit(melee_damage, DMG_TYPE.PHYS)
+	if enemies_hit:
+		mace_hit_sfx.play()
 
 
 func attack_magic_pool() -> void:
 	var c = MAGIC_POOL.instantiate()
 	add_child(c)
 	c.position = get_viewport().get_mouse_position()
-	
-	
 
 
 func summon_skeletons() -> void:
@@ -125,6 +131,8 @@ func take_hit(dmg: float, dmg_type: DMG_TYPE) -> void:
 
 func die() -> void:
 	print("I died!")
+	death_menu.show()
+	get_tree().paused = true
 
 """
 MAXHP - Max HP

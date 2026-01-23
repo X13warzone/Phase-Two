@@ -45,9 +45,9 @@ radius = 150.0
 
 [node name="HeroMage" instance=ExtResource("1_7sqll")]
 script = ExtResource("2_16qmp")
-SPEED = 70.0
+SPEED = 40.0
 job = 1
-MAX_HP = 7.0
+MAX_HP = 8.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 scale = Vector2(4, 4)

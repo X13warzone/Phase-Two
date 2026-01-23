@@ -5,19 +5,22 @@ extends Node
 @onready var score_1_label: Label = $CanvasLayer/Score1Label
 @onready var hero_party: Node2D = $HeroParty
 @onready var boss: CharacterBody2D = $Boss
+@onready var wave_label: Label = $CanvasLayer/WaveLabel
 
 
 const HERO_MAGE = preload("res://hero/hero_mage.tscn")
 const HERO_KNIGHT = preload("res://hero/hero_knight.tscn")
+const HERO_ARCHER = preload("res://hero/hero_archer.tscn")
+const HERO_CLERIC = preload("res://hero/hero_cleric.tscn")
 """ FORMAT
 wave_num: [num_knights, num_archers, num_mages, num_clerics]
 """
 const WAVES = {
-	1: [1, 0, 0, 0],
-	2: [2, 0, 1, 0],
-	3: [2, 0, 4, 0],
-	4: [4, 0, 3, 0],
-	5: [10, 0, 4, 0]
+	1: [1, 0, 0, 1],
+	2: [2, 1, 0, 0],
+	3: [2, 2, 1, 0],
+	4: [3, 2, 2, 1],
+	5: [6, 3, 4, 3]
 }
 var wave: int = 0
 
@@ -46,31 +49,35 @@ func _update_score(heroes_slain) -> void:
 
 
 func spawn_unit(unit_name: String, location: Vector2) -> void:
+	var c
 	match unit_name:
 		"Knight":
-			var c = HERO_KNIGHT.instantiate()
-			c.position = location
-			hero_party.add_child(c)
+			c = HERO_KNIGHT.instantiate()
 		"Mage":
-			var c = HERO_MAGE.instantiate()
-			c.position = location
-			hero_party.add_child(c)
+			c = HERO_MAGE.instantiate()
+		"Archer":
+			c = HERO_ARCHER.instantiate()
+		"Cleric":
+			c = HERO_CLERIC.instantiate()
+	if c:
+		c.position = location
+		hero_party.add_child(c)
 
 
 func get_random_loc() -> Vector2:
 	var loc = Vector2.ZERO
 	if randf() <= 0.5:
-		loc.y = randi_range(230, 310)
+		loc.y = randi_range(250, 370)
 		if randf() <= 0.5:
-			loc.x = -40
+			loc.x = randi_range(-100, -50)
 		else:
-			loc.x = 1192
+			loc.x = randi_range(1170, 1220)
 	else:
-		loc.x = randi_range(530, 622)
+		loc.x = randi_range(500, 620)
 		if randf() <= 0.5:
-			loc.y = -40
+			loc.y = randi_range(-80, -30)
 		else:
-			loc.y = 680
+			loc.y = randi_range(670, 720)
 	return loc
 
 
@@ -80,12 +87,28 @@ func spawn_wave() -> void:
 		heroes_alive = WAVES[wave][0] + WAVES[wave][1] + WAVES[wave][2] + WAVES[wave][3]
 		for hero in WAVES[wave][0]:
 			spawn_unit("Knight", get_random_loc())
+		for hero in WAVES[wave][1]:
+			spawn_unit("Archer", get_random_loc())
 		for hero in WAVES[wave][2]:
 			spawn_unit("Mage", get_random_loc())
+		for hero in WAVES[wave][3]:
+			spawn_unit("Cleric", get_random_loc())
 	else:
 		var knights = randi_range(wave, wave * 2)
+		var archers = randi_range(wave, floori(wave * 1.5))
 		var mages = randi_range(wave, ceili(wave * 1.5))
-		heroes_alive = knights + mages
+		var clerics = randi_range(floori(wave * 0.8), ceili(wave * 1.5))
+		heroes_alive = knights + archers + mages + clerics
 		
 		for hero in knights:
 			spawn_unit("Knight", get_random_loc())
+		for hero in archers:
+			spawn_unit("Archer", get_random_loc())
+		for hero in mages:
+			spawn_unit("Mage", get_random_loc())
+		for hero in clerics:
+			spawn_unit("Cleric", get_random_loc())
+
+
+func _on_bg_music_finished() -> void:
+	$BGMusic.play()

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dufkxw2vsms5l"
+path="res://.godot/imported/8 bit evolve.ogg-8a5af94163f709f819feec48d1848554.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sounds/8 bit evolve.ogg"
+dest_files=["res://.godot/imported/8 bit evolve.ogg-8a5af94163f709f819feec48d1848554.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

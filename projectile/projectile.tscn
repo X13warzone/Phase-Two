@@ -4,6 +4,7 @@
 
 [node name="Projectile" type="CharacterBody2D"]
 top_level = true
+motion_mode = 1
 script = ExtResource("1_6aa83")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -17,3 +18,4 @@ script = ExtResource("1_6aa83")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxCheck"]
 
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_entered" from="HitboxCheck" to="." method="_on_hitbox_check_body_entered"]

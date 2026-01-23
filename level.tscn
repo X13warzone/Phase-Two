@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=4 uid="uid://khd1vd2i4r7s"]
+[gd_scene load_steps=17 format=4 uid="uid://khd1vd2i4r7s"]
 
 [ext_resource type="Script" uid="uid://caq01v0khfv0i" path="res://level.gd" id="1_oi3di"]
 [ext_resource type="PackedScene" uid="uid://cbbremwv48hjp" path="res://boss/boss.tscn" id="1_u52ul"]
 [ext_resource type="Texture2D" uid="uid://c3bpm5fmxcu24" path="res://assets/sprites/CastleTiles/castle_tileset.png" id="4_f2txt"]
 [ext_resource type="Texture2D" uid="uid://dgdfm0jkncb64" path="res://assets/sprites/CastleTiles/castleBg.png" id="5_1ainy"]
 [ext_resource type="Texture2D" uid="uid://dynn6w2vvb2m2" path="res://assets/sprites/CastleTiles/caslePropsSheet.png" id="5_f2txt"]
+[ext_resource type="AudioStream" uid="uid://cbrm4wsd4hx2c" path="res://assets/sounds/NotJamMusicPack_ogg/Loopable_ogg/MeltdownTheme_Loopable.ogg" id="6_1ainy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vonw3"]
 vertices = PackedVector2Array(1344.8281, -83.02344, 1330.1563, 813.02344, 1222, 297, 1222, 21, -101.28125, -85.97656, 658, 21, 1222, 681, -127.6875, 816.96875, 658, 681, 582, 681, 50, 681, 50, 373, 582, 73, 658, 73, 582, 629, 582, 21, 50, 21, 102, 297, 102, 73, 1170, 73, 1170, 297, 658, 629, 1170, 373, 1170, 629, 102, 629, 102, 373, 50, 297, 1222, 373)
@@ -420,6 +421,11 @@ sources/1 = SubResource("TileSetAtlasSource_1ainy")
 [node name="Level" type="Node"]
 script = ExtResource("1_oi3di")
 
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_1ainy")
+autoplay = true
+
 [node name="BGTexture" type="TextureRect" parent="."]
 z_index = -10
 anchors_preset = 15
@@ -507,6 +513,10 @@ offset_top = 13.0
 offset_right = 1222.0
 offset_bottom = 57.0
 
+[node name="WaveLabel" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -9
 scale = Vector2(2, 2)
@@ -515,4 +525,4 @@ tile_set = SubResource("TileSet_km5ld")
 
 [node name="HeroParty" type="Node2D" parent="."]
 
-[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+[connection signal="finished" from="BGMusic" to="." method="_on_bg_music_finished"]

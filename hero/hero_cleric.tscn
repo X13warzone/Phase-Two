@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://cuml78gvnm1bq"]
+
+[ext_resource type="PackedScene" uid="uid://bfuvo2lw0hmk1" path="res://hero/hero_base.tscn" id="1_xcj77"]
+[ext_resource type="Script" uid="uid://dqpmyavrxppc2" path="res://hero/hero_cleric.gd" id="2_cinu1"]
+[ext_resource type="Texture2D" uid="uid://bc033r4wgdc7d" path="res://assets/sprites/Heroes/cleric1.png" id="2_t464x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cinu1"]
+atlas = ExtResource("2_t464x")
+region = Rect2(0, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dd4n1"]
+atlas = ExtResource("2_t464x")
+region = Rect2(16, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo0kv"]
+atlas = ExtResource("2_t464x")
+region = Rect2(32, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghr8v"]
+atlas = ExtResource("2_t464x")
+region = Rect2(48, 0, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j44of"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cinu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dd4n1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo0kv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghr8v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cinu1"]
+radius = 250.0
+
+[node name="HeroCleric" instance=ExtResource("1_xcj77")]
+script = ExtResource("2_cinu1")
+MAX_HP = 7.0
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_j44of")
+autoplay = "default"
+frame_progress = 0.96353424
+
+[node name="AttackRange" parent="." index="3"]
+collision_mask = 8
+
+[node name="CollisionShape2D" parent="AttackRange" index="0"]
+shape = SubResource("CircleShape2D_cinu1")

@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://bwfvto07rcehk"]
+
+[ext_resource type="PackedScene" uid="uid://dqb0eogvq4pfk" path="res://projectile/projectile.tscn" id="1_pahua"]
+[ext_resource type="Script" uid="uid://c4ti2o2fo0v7y" path="res://projectile/archer_arrow.gd" id="2_4x04c"]
+[ext_resource type="Texture2D" uid="uid://c1w6du7ijkdc" path="res://assets/sprites/Boss/arrow.png" id="2_xcw1b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4x04c"]
+atlas = ExtResource("2_xcw1b")
+region = Rect2(0, 0, 7, 7)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jkot1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4x04c")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jkot1"]
+radius = 4.0
+height = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lr0g4"]
+radius = 4.0
+height = 34.0
+
+[node name="ArcherArrow" instance=ExtResource("1_pahua")]
+script = ExtResource("2_4x04c")
+speed = 150.0
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+rotation = 0.7853982
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_jkot1")
+
+[node name="AttackRange" parent="." index="1"]
+collision_layer = 16
+collision_mask = 6
+
+[node name="CollisionShape2D" parent="AttackRange" index="0"]
+position = Vector2(12, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_jkot1")
+
+[node name="HitboxCheck" parent="." index="2"]
+collision_layer = 16
+collision_mask = 65
+
+[node name="CollisionShape2D" parent="HitboxCheck" index="0"]
+position = Vector2(1, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_lr0g4")

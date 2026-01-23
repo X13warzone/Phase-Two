@@ -34,5 +34,13 @@ func take_hit(dmg: float, dmg_type: DMG_TYPE) -> void:
 			curr_hp -= dmg * (1.0 / (1.0 + (mag_def / 10.0)))
 
 
+func heal(life_gained: float) -> void:
+	curr_hp += life_gained
+
+
+func get_hp_percent() -> float:
+	return curr_hp / MAX_HP
+
+
 func die() -> void:
 	pass

@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpxrby6obum3p"]
+[gd_scene load_steps=10 format=3 uid="uid://cpxrby6obum3p"]
 
 [ext_resource type="PackedScene" uid="uid://bfuvo2lw0hmk1" path="res://hero/hero_base.tscn" id="1_xcdve"]
+[ext_resource type="Script" uid="uid://byifr5avt5fwk" path="res://hero/hero_archer.gd" id="2_87pxi"]
 [ext_resource type="Texture2D" uid="uid://b2d5lpbcfvwnt" path="res://assets/sprites/Heroes/archer1.png" id="2_na2bk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_87pxi"]
@@ -36,11 +37,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 7.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_87pxi"]
+radius = 200.0
+
 [node name="HeroArcher" instance=ExtResource("1_xcdve")]
+script = ExtResource("2_87pxi")
+SPEED = 60.0
 job = 3
+MAX_HP = 9.0
 
 [node name="AnimatedSprite2D" parent="." index="1"]
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_8dr4d")
+autoplay = "default"
+frame_progress = 0.38835624
+
+[node name="CollisionShape2D" parent="AttackRange" index="0"]
+shape = SubResource("CircleShape2D_87pxi")

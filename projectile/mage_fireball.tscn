@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://oack8d3by01f"]
+[gd_scene load_steps=10 format=3 uid="uid://oack8d3by01f"]
 
 [ext_resource type="PackedScene" uid="uid://dqb0eogvq4pfk" path="res://projectile/projectile.tscn" id="1_0551s"]
 [ext_resource type="Texture2D" uid="uid://45pijija5pe" path="res://assets/sprites/fireball.png" id="2_hw4dl"]
+[ext_resource type="Script" uid="uid://b5cqe28dmjc5w" path="res://projectile/mage_fireball.gd" id="2_r65hw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eag25"]
 atlas = ExtResource("2_hw4dl")
@@ -40,8 +41,8 @@ radius = 7.0
 
 [node name="MageFireball" instance=ExtResource("1_0551s")]
 collision_layer = 16
-speed = 160.0
-damage = 3
+script = ExtResource("2_r65hw")
+speed = 80.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(-7, 0)

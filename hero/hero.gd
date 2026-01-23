@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 	move_to_boss()
 	if velocity.x < 0:
 		animated_sprite_2d.flip_h = true
-	else:
+	elif velocity.x > 0:
 		animated_sprite_2d.flip_h = false
 
 
@@ -84,11 +84,12 @@ func attack() -> void:
 
 
 func die() -> void:
+	hide()
+	alive = false
 	var c = XP_ORB.instantiate()
 	add_sibling(c)
 	c.position = position
 	GlobalScript.heroes_slain += 1
-	alive = false
 	queue_free()
 
 

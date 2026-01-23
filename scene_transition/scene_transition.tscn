@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://baoqg5e4hirc5"]
+[gd_scene load_steps=6 format=3 uid="uid://baoqg5e4hirc5"]
 
 [ext_resource type="Script" uid="uid://jgdw14sfsltk" path="res://scene_transition/scene_transition.gd" id="1_1tgxw"]
+[ext_resource type="Texture2D" uid="uid://dn5lw8vpvo5ns" path="res://assets/sprites/purple_diagonal_tile.png" id="2_yc5g4"]
 
 [sub_resource type="Animation" id="Animation_yc5g4"]
 length = 0.001
@@ -40,9 +41,10 @@ _data = {
 }
 
 [node name="SceneTransition" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_1tgxw")
 
-[node name="DissolveRect" type="ColorRect" parent="."]
+[node name="DissolveRect" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,7 +52,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.34568417, 0.7877595, 0.8964622, 1)
+texture = ExtResource("2_yc5g4")
+stretch_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
