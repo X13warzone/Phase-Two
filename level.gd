@@ -16,7 +16,7 @@ const HERO_CLERIC = preload("res://hero/hero_cleric.tscn")
 wave_num: [num_knights, num_archers, num_mages, num_clerics]
 """
 const WAVES = {
-	1: [1, 0, 0, 1],
+	1: [1, 0, 0, 0],
 	2: [2, 1, 0, 0],
 	3: [2, 2, 1, 0],
 	4: [3, 2, 2, 1],
@@ -25,21 +25,26 @@ const WAVES = {
 var wave: int = 0
 
 
-var heroes_alive: int = -1:
-	set(new_ha):
-		heroes_alive = new_ha
-		if new_ha <= 0:
-			wave += 1
-			spawn_wave()
+var heroes_alive: int = -1
+	#:set(new_ha):
+		#heroes_alive = new_ha
+		#if new_ha <= 0:
+			#wave += 1
+			#spawn_wave()
 
 
 func _ready() -> void:
-	GlobalScript.heroes_slain_updated.connect(_update_score)
-	heroes_alive = 0
+	pass
+	#GlobalScript.heroes_slain_updated.connect(_update_score)
+	#heroes_alive = 0
 
 
 func _process(delta: float) -> void:
 	fps_label.text = "FPS: %f" % Engine.get_frames_per_second()
+	
+	if get_tree().get_node_count_in_group("Hero") <= 0:
+		wave += 1
+		spawn_wave()
 
 
 func _update_score(heroes_slain) -> void:
@@ -62,6 +67,11 @@ func spawn_unit(unit_name: String, location: Vector2) -> void:
 	if c:
 		c.position = location
 		hero_party.add_child(c)
+		c.MAX_HP *= (floori(1 + (wave / 3.0)) / 5.0) + 0.8
+		c.phys_def += floori(wave / 4.0)
+		c.mag_def += floori((wave - 1.0) / 4.0)
+		c.melee_damage += (floori((wave - 5.0) / 2.0) + 1.0) / 5.0
+		c.magic_damage += (floori((wave - 5.0) / 2.0) + 1.0) / 5.0
 
 
 func get_random_loc() -> Vector2:
@@ -94,10 +104,10 @@ func spawn_wave() -> void:
 		for hero in WAVES[wave][3]:
 			spawn_unit("Cleric", get_random_loc())
 	else:
-		var knights = randi_range(wave, wave * 2)
-		var archers = randi_range(wave, floori(wave * 1.5))
-		var mages = randi_range(wave, ceili(wave * 1.5))
-		var clerics = randi_range(floori(wave * 0.8), ceili(wave * 1.5))
+		var knights = randi_range(ceili(wave * 0.5), wave)
+		var archers = randi_range(ceili(wave * 0.4), ceili(wave * 0.9))
+		var mages = randi_range(floori(wave * 0.5), floori(wave * 0.9))
+		var clerics = randi_range(floori(wave * 0.4), ceili(wave * 0.8))
 		heroes_alive = knights + archers + mages + clerics
 		
 		for hero in knights:

@@ -1,0 +1,93 @@
+[gd_scene load_steps=12 format=3 uid="uid://bsnaary2y7amk"]
+
+[ext_resource type="Script" uid="uid://b6rxwhedqgxjk" path="res://entity/skeleton_minion.gd" id="1_ry7gy"]
+[ext_resource type="Texture2D" uid="uid://w6514001xdd3" path="res://assets/sprites/Boss/skeleton1.png" id="2_8hacs"]
+[ext_resource type="Texture2D" uid="uid://nnd5n7yeaqeb" path="res://assets/sprites/HealthBar/hp_bar_border.png" id="2_ry7gy"]
+[ext_resource type="Texture2D" uid="uid://dt7pq2cbkfq4i" path="res://assets/sprites/HealthBar/hp_bar_bar.png" id="3_8hacs"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1delc"]
+radius = 16.0
+height = 34.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwsxd"]
+atlas = ExtResource("2_8hacs")
+region = Rect2(0, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tmiw"]
+atlas = ExtResource("2_8hacs")
+region = Rect2(16, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrogg"]
+atlas = ExtResource("2_8hacs")
+region = Rect2(32, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlrq8"]
+atlas = ExtResource("2_8hacs")
+region = Rect2(48, 0, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k7xif"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwsxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2tmiw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrogg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlrq8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ps8wt"]
+radius = 25.0
+
+[node name="SkeletonMinion" type="CharacterBody2D"]
+top_level = true
+collision_layer = 4
+collision_mask = 65
+motion_mode = 1
+script = ExtResource("1_ry7gy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_1delc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_k7xif")
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_ps8wt")
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HPBar" type="TextureProgressBar" parent="."]
+offset_left = -16.0
+offset_top = -42.0
+offset_right = 16.0
+offset_bottom = -28.0
+value = 100.0
+texture_under = ExtResource("2_ry7gy")
+texture_progress = ExtResource("3_8hacs")
+tint_progress = Color(0.88235295, 0.09411765, 0.15294118, 1)
+
+[node name="Projectiles" type="Node2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="CheckTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]

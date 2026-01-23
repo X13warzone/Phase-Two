@@ -5,6 +5,7 @@ enum ACTION {WALK, MELEE, MAGIC, SUMMON, STUNNED}
 var action: ACTION = ACTION.WALK
 
 
+@onready var summon_skeleton_timer: Timer = $SummonSkeletonTimer
 @onready var melee_combo_timer: Timer = $MeleeComboTimer
 @onready var magic_pool_timer: Timer = $MagicPoolTimer
 @onready var hp_bar: TextureProgressBar = $CanvasLayer/HPBar
@@ -15,9 +16,11 @@ var action: ACTION = ACTION.WALK
 @onready var mace_sweep_sfx: AudioStreamPlayer = $AttackHitbox/MaceSweepSFX
 @onready var mace_hit_sfx: AudioStreamPlayer = $AttackHitbox/MaceHitSFX
 @onready var death_menu: CenterContainer = $CanvasLayer/DeathMenu
+@onready var wall_checker: RayCast2D = $WallChecker
 
 
 const MAGIC_POOL = preload("res://projectile/magic_pool.tscn")
+const SKELETON_MINION = preload("res://entity/skeleton_minion.tscn")
 
 
 var SPEED = 150.0
@@ -40,8 +43,8 @@ var xp: int = 0:
 var upgrade_options = []
 
 
-var unlock_magic_pool: bool = false
-var unlock_summon_skeleton: bool = false
+var unlock_magic_pool: bool = true
+var unlock_summon_skeleton: bool = true
 
 
 func _process(delta: float) -> void:
@@ -54,7 +57,11 @@ func _process(delta: float) -> void:
 	$AttackHitbox.rotation = (position.angle_to_point(get_viewport().get_mouse_position()))
 
 	do_melee_next = false
-	if Input.is_action_pressed("skill_1") and unlock_magic_pool:
+	if Input.is_action_pressed("skill_2") and unlock_summon_skeleton:
+		if summon_skeleton_timer.is_stopped():
+			summon_skeleton_timer.start(15)
+			summon_skeletons()
+	elif Input.is_action_pressed("skill_1") and unlock_magic_pool:
 		if magic_pool_timer.is_stopped():
 			magic_pool_timer.start(7)
 			attack_magic_pool()
@@ -98,6 +105,7 @@ func attack_melee_stab() -> void:
 	attack_player.play("melee_stab")
 	for b in $AttackHitbox/MeleeStab.get_overlapping_bodies():
 		if b.alive:
+			b.take_knockback(b.position - position, 0)
 			b.take_hit(melee_damage * 2, DMG_TYPE.PHYS)
 
 
@@ -117,11 +125,23 @@ func attack_melee_sweep(frameset: int = 1) -> void:
 func attack_magic_pool() -> void:
 	var c = MAGIC_POOL.instantiate()
 	add_child(c)
+	c.damage *= magic_damage
 	c.position = get_viewport().get_mouse_position()
 
 
 func summon_skeletons() -> void:
-	pass
+	print_debug("summon")
+	var summon_pos: Vector2
+	var c
+	for sp in [Vector2(0, -50), Vector2(0, -50).rotated(deg_to_rad(120)), Vector2(0, -50).rotated(deg_to_rad(240))]:
+		summon_pos = sp
+		wall_checker.target_position = summon_pos
+		wall_checker.force_raycast_update()
+		if wall_checker.is_colliding():
+			summon_pos = summon_pos.normalized() * (position.distance_to(wall_checker.get_collision_point()) - 20.0)
+		c = SKELETON_MINION.instantiate()
+		$Summons.add_child(c)
+		c.position = summon_pos + position
 
 
 func take_hit(dmg: float, dmg_type: DMG_TYPE) -> void:
@@ -141,7 +161,7 @@ PYDEF - Physical defense
 MGDEF - Magical defense
 PYDMG - Physical damage
 MGDMG - Magical damage
-Unlock skill
+SKLCD - Skill cooldowns
 
 Unlockable skills:
 RMGP - Ranged magic pool
@@ -170,7 +190,17 @@ func level_up() -> void:
 			["RMGP", [0,0]],
 			["RMGP", [0,0]]
 		]
-	elif level == 6:
+	elif level < 7:
+		all_options = [
+			["MAXHP", [5, 10]],
+			["REGEN", [1, 2]],
+			["PYDEF", [1, 2]],
+			["MGDEF", [1, 2]],
+			["PYDMG", [1, 2]],
+			["MGDMG", [1, 2]],
+			["SKLCD", [1, 5]]
+		]
+	elif level == 7:
 		all_options = [
 			["SMNS", [0, 0]],
 			["SMNS", [0, 0]],
@@ -193,6 +223,9 @@ func level_up() -> void:
 		upgrade_options.append([selected_option[0], randi_range(selected_option[1][0], selected_option[1][1])])
 		temp_options.remove_at(selected_index)
 		level_up_menu.set_option(get_upgrade_text(upgrade_options[i][0], upgrade_options[i][1]))
+
+	$LevelUpSprite.play("default")
+	await $LevelUpSprite.animation_finished
 
 	level_up_menu.show()
 	get_tree().paused = true

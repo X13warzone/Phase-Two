@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://est7hjmta3ti"]
+
+[ext_resource type="Script" uid="uid://d4c5jb3rpom3d" path="res://menu/options_menu.gd" id="1_owp0g"]
+
+[node name="OptionsMenu" type="VBoxContainer"]
+offset_left = 495.0
+offset_top = 281.0
+offset_right = 657.0
+offset_bottom = 358.0
+script = ExtResource("1_owp0g")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "SOUND"
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = -50.0
+max_value = 20.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+text = "MUSIC"
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = -50.0
+max_value = 20.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer3"]
+layout_mode = 2
+text = "EFFECTS"
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = -50.0
+max_value = 20.0
+
+[connection signal="value_changed" from="HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]

@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://dqb0eogvq4pfk" path="res://projectile/projectile.tscn" id="1_pahua"]
 [ext_resource type="Script" uid="uid://c4ti2o2fo0v7y" path="res://projectile/archer_arrow.gd" id="2_4x04c"]
-[ext_resource type="Texture2D" uid="uid://c1w6du7ijkdc" path="res://assets/sprites/Boss/arrow.png" id="2_xcw1b"]
+[ext_resource type="Texture2D" uid="uid://c28vquloq32l" path="res://assets/sprites/arrow.png" id="3_xcw1b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4x04c"]
-atlas = ExtResource("2_xcw1b")
+atlas = ExtResource("3_xcw1b")
 region = Rect2(0, 0, 7, 7)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jkot1"]

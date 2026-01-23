@@ -25,3 +25,9 @@ func attack() -> void:
 	c.position = position
 	c.rotation = position.angle_to_point(GlobalScript.get_boss_position())
 	projectiles.add_child(c)
+	c.damage *= magic_damage
+
+
+func take_knockback(dir: Vector2, strength: float) -> void:
+	super.take_knockback(dir, strength)
+	attack_timer.stop()

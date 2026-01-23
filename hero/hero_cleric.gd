@@ -28,8 +28,8 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if action == ACTION.FORWARD and position.distance_squared_to(GlobalScript.get_boss_position()) > 13500:
-			move_target = navigation_agent_2d.get_next_path_position()
-			velocity = (move_target - position).normalized() * SPEED
+		move_target = navigation_agent_2d.get_next_path_position()
+		velocity = (move_target - position).normalized() * SPEED
 	
 	move_and_slide()
 
@@ -51,13 +51,13 @@ func attack() -> void:
 		c.position = position
 		c.rotation = position.angle_to_point(h.position)
 		projectiles.add_child(c)
+		c.true_parent = self
 
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
-	super._on_attack_range_body_entered(body)
-	heroes_in_range.append(body)
+	if body != self:
+		heroes_in_range.append(body)
 
 
 func _on_attack_range_body_exited(body: Node2D) -> void:
-	super._on_attack_range_body_exited(body)
 	heroes_in_range.erase(body)

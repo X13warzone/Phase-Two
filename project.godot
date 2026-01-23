@@ -26,6 +26,10 @@ SceneTransition="*res://scene_transition/scene_transition.tscn"
 window/size/viewport_height=640
 window/stretch/mode="viewport"
 
+[global_group]
+
+Hero=""
+
 [input]
 
 move_left={

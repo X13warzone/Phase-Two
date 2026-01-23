@@ -84,12 +84,12 @@ func attack() -> void:
 
 
 func die() -> void:
+	GlobalScript.heroes_slain += 1
 	hide()
 	alive = false
 	var c = XP_ORB.instantiate()
 	add_sibling(c)
 	c.position = position
-	GlobalScript.heroes_slain += 1
 	queue_free()
 
 

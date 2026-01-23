@@ -44,6 +44,7 @@ radius = 32.0
 
 [node name="MagicPool" type="Node2D"]
 top_level = true
+z_index = -5
 script = ExtResource("1_hod82")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

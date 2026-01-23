@@ -18,8 +18,15 @@ func _process(delta: float) -> void:
 	elif action == ACTION.CHANNEL:
 		channel_bar.value = (0.5 - attack_timer.time_left) * 100.0 / 0.5
 
+
 func attack() -> void:
 	var c = ARCHER_ARROW.instantiate()
 	c.position = position
 	c.rotation = position.angle_to_point(GlobalScript.get_boss_position())
 	projectiles.add_child(c)
+	c.damage *= melee_damage
+
+
+func take_knockback(dir: Vector2, strength: float) -> void:
+	super.take_knockback(dir, strength)
+	attack_timer.stop()

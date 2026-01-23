@@ -5,7 +5,16 @@ class_name Entity
 enum DMG_TYPE {PHYS, MAG}
 
 
-@export var MAX_HP: float = 10.0
+@export var MAX_HP: float = 10.0:
+	set(new_max_hp):
+		if new_max_hp < MAX_HP:
+			MAX_HP = new_max_hp
+			if curr_hp > MAX_HP:
+				curr_hp = MAX_HP
+		else:
+			var max_hp_change = new_max_hp - MAX_HP
+			MAX_HP = new_max_hp
+			curr_hp += max_hp_change
 var curr_hp: float = MAX_HP:
 	set(new_hp):
 		curr_hp = new_hp
@@ -15,8 +24,8 @@ var curr_hp: float = MAX_HP:
 			curr_hp = MAX_HP
 
 
-var phys_def: int
-var mag_def: int
+var phys_def: int = 0
+var mag_def: int = 0
 
 var melee_damage: int = 1
 var magic_damage: int = 1

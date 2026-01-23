@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlibeah01a4gl"]
+[gd_scene load_steps=11 format=3 uid="uid://dlibeah01a4gl"]
 
 [ext_resource type="PackedScene" uid="uid://dqb0eogvq4pfk" path="res://projectile/projectile.tscn" id="1_6jjvj"]
 [ext_resource type="Script" uid="uid://cuniv8ifcb61x" path="res://projectile/heal_orb.gd" id="2_3yrbn"]
@@ -40,6 +40,12 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3yrbn"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_juhge"]
+radius = 12.0
+
 [node name="HealOrb" instance=ExtResource("1_6jjvj")]
 collision_layer = 16
 collision_mask = 0
@@ -47,6 +53,7 @@ script = ExtResource("2_3yrbn")
 speed = 350.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_2ef6k")
 autoplay = "default"
 frame_progress = 0.12029209
@@ -56,6 +63,14 @@ collision_layer = 16
 collision_mask = 8
 input_pickable = false
 
+[node name="CollisionShape2D" parent="AttackRange" index="0"]
+position = Vector2(16, 0)
+shape = SubResource("CircleShape2D_3yrbn")
+
 [node name="HitboxCheck" parent="." index="2"]
 collision_layer = 16
 collision_mask = 65
+
+[node name="CollisionShape2D" parent="HitboxCheck" index="0"]
+position = Vector2(16, 0)
+shape = SubResource("CircleShape2D_juhge")
