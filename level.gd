@@ -22,7 +22,7 @@ const WAVES = {
 	4: [3, 2, 2, 1],
 	5: [6, 3, 4, 3]
 }
-var wave: int = 0
+var wave: int = 6
 
 
 var heroes_alive: int = -1

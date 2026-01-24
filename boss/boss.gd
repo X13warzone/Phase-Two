@@ -17,6 +17,7 @@ var action: ACTION = ACTION.WALK
 @onready var mace_hit_sfx: AudioStreamPlayer = $AttackHitbox/MaceHitSFX
 @onready var death_menu: CenterContainer = $CanvasLayer/DeathMenu
 @onready var wall_checker: RayCast2D = $WallChecker
+@onready var hit_if_timer: Timer = $HitIFTimer
 
 
 const MAGIC_POOL = preload("res://projectile/magic_pool.tscn")
@@ -43,8 +44,14 @@ var xp: int = 0:
 var upgrade_options = []
 
 
-var unlock_magic_pool: bool = true
-var unlock_summon_skeleton: bool = true
+var unlock_magic_pool: bool = false
+var unlock_summon_skeleton: bool = false
+var summon_skeleton_count: int = 2  ## This will be upticked once everytime SMNS is called. Default is 3, so we start at 2 since it'll be upticked when unlocked
+var skill_coolddown: int = 0:
+	set(new_cd):
+		skill_coolddown = new_cd
+		$CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/MarginContainer/PoisonProg.max_value = 7.0 * (100.0 / (100.0 + skill_coolddown))
+		$CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/MarginContainer3/SkeletonProg.max_value = 15.0 * (100.0 / (100.0 + skill_coolddown))
 
 
 func _process(delta: float) -> void:
@@ -59,11 +66,11 @@ func _process(delta: float) -> void:
 	do_melee_next = false
 	if Input.is_action_pressed("skill_2") and unlock_summon_skeleton:
 		if summon_skeleton_timer.is_stopped():
-			summon_skeleton_timer.start(15)
+			summon_skeleton_timer.start(15.0 * (100.0 / (100.0 + skill_coolddown)))
 			summon_skeletons()
 	elif Input.is_action_pressed("skill_1") and unlock_magic_pool:
 		if magic_pool_timer.is_stopped():
-			magic_pool_timer.start(7)
+			magic_pool_timer.start(7.0 * (100.0 / (100.0 + skill_coolddown)))
 			attack_magic_pool()
 	elif Input.is_action_pressed("attack"):
 		if melee_combo_timer.is_stopped():
@@ -111,7 +118,11 @@ func attack_melee_stab() -> void:
 
 func attack_melee_sweep(frameset: int = 1) -> void:
 	var enemies_hit = 0
-	attack_player.play("melee_sweep%d" % frameset)
+	match frameset:
+		1:
+			attack_player.play("melee_sweep1")
+		2:
+			attack_player.play_backwards("melee_sweep1")
 	mace_sweep_sfx.play()
 	for b in $AttackHitbox/MeleeSweep.get_overlapping_bodies():
 		if b.alive:
@@ -130,11 +141,10 @@ func attack_magic_pool() -> void:
 
 
 func summon_skeletons() -> void:
-	print_debug("summon")
 	var summon_pos: Vector2
 	var c
-	for sp in [Vector2(0, -50), Vector2(0, -50).rotated(deg_to_rad(120)), Vector2(0, -50).rotated(deg_to_rad(240))]:
-		summon_pos = sp
+	for sp in range(summon_skeleton_count):
+		summon_pos = Vector2(0, -50).rotated(deg_to_rad(sp * 360.0 / summon_skeleton_count))
 		wall_checker.target_position = summon_pos
 		wall_checker.force_raycast_update()
 		if wall_checker.is_colliding():
@@ -162,6 +172,7 @@ MGDEF - Magical defense
 PYDMG - Physical damage
 MGDMG - Magical damage
 SKLCD - Skill cooldowns
+SMNS - Summon 1 additional skeleton
 
 Unlockable skills:
 RMGP - Ranged magic pool
@@ -213,7 +224,9 @@ func level_up() -> void:
 			["PYDEF", [1, 2]],
 			["MGDEF", [1, 2]],
 			["PYDMG", [1, 2]],
-			["MGDMG", [1, 2]]
+			["MGDMG", [1, 2]],
+			["SKLCD", [1, 5]],
+			["SMNS", [0, 0]]
 		]
 
 	temp_options = all_options
@@ -249,7 +262,12 @@ func get_upgrade_text(upgrade_code: String, upgrade_value: int) -> String:
 		"RMGP":
 			res = "(REMEMBER SOME MAGIC)\n\nUNLOCK RANGED MAGIC ATTACK (Q)"
 		"SMNS":
-			res = "(GET YOUR FRIENDS)\n\nUNLOCK SUMMONING SKELETONS (E)"
+			if unlock_summon_skeleton:
+				res = "(THE MORE THE MERRIER)\n\nSUMMON AN ADDITIONAL SKELETON"
+			else:
+				res = "(CALL THE GANG)\n\nUNLOCK SUMMONING SKELETONS (E)"
+		"SKLCD":
+			res = "(CHUG ENERGY DRINK)\n\nREDUCE SKILL COOLDOWNS"
 	return res
 
 
@@ -274,8 +292,13 @@ func _on_level_up_menu_level_up_option_selected(option_num: int) -> void:
 			magic_damage += upgrade_value
 		"RMGP":
 			unlock_magic_pool = true
+			$CanvasLayer/SkillCooldownDisplay.magic_poison_unlocked = true
 		"SMNS":
 			unlock_summon_skeleton = true
+			summon_skeleton_count += 1
+			$CanvasLayer/SkillCooldownDisplay.summon_skeleton_unlocked = true
+		"SKCLD":
+			skill_coolddown += upgrade_value
 	stat_label.text = "
 LVL: %d
 XP: %d

@@ -34,8 +34,14 @@ func set_option(string: String) -> void:
 			button_2.text = string
 		2:
 			button_3.text = string
+			$CenterContainer/HBoxContainer/Button.disabled = true
+			$CenterContainer/HBoxContainer/Button2.disabled = true
+			$CenterContainer/HBoxContainer/Button3.disabled = true
+			await get_tree().create_timer(1.0).timeout
+			$CenterContainer/HBoxContainer/Button.disabled = false
+			$CenterContainer/HBoxContainer/Button2.disabled = false
+			$CenterContainer/HBoxContainer/Button3.disabled = false
 	options_set += 1
-
 
 func _on_button_pressed() -> void:
 	options_set = 0

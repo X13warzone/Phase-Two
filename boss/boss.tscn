@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cbbremwv48hjp"]
+[gd_scene load_steps=34 format=3 uid="uid://cbbremwv48hjp"]
 
 [ext_resource type="Script" uid="uid://b61qtanarum40" path="res://boss/boss.gd" id="1_b105h"]
 [ext_resource type="Texture2D" uid="uid://b5jeqkcsryfjk" path="res://assets/sprites/Boss/boss1.png" id="2_270ai"]
@@ -6,8 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dt7pq2cbkfq4i" path="res://assets/sprites/HealthBar/hp_bar_bar.png" id="3_270ai"]
 [ext_resource type="Texture2D" uid="uid://c1ucv87lr1l2b" path="res://assets/sprites/Boss/level_up.png" id="3_y10lg"]
 [ext_resource type="Script" uid="uid://c8v1tvaoq28pm" path="res://boss/level_up_menu.gd" id="5_205ta"]
-[ext_resource type="Texture2D" uid="uid://dkucu55uqcou8" path="res://assets/sprites/Boss/melee_sweep.png" id="5_hcu6l"]
-[ext_resource type="Texture2D" uid="uid://bv2tjsjwuyib0" path="res://assets/sprites/Boss/melee_stab.png" id="5_ti23b"]
 [ext_resource type="Texture2D" uid="uid://35j2f3m84akq" path="res://assets/sprites/purple_grad_square.png" id="6_3bina"]
 [ext_resource type="Texture2D" uid="uid://bhi8jw5s6qxuo" path="res://assets/sprites/white_grad_square.png" id="7_6w25r"]
 [ext_resource type="AudioStream" uid="uid://dufkxw2vsms5l" path="res://assets/sounds/8 bit evolve.ogg" id="7_bfjv4"]
@@ -15,6 +13,11 @@
 [ext_resource type="AudioStream" uid="uid://c2s0yedact4cw" path="res://assets/sounds/mace_swing.ogg" id="9_3bina"]
 [ext_resource type="AudioStream" uid="uid://c0usa6ftjgivp" path="res://assets/sounds/hammer strike.ogg" id="10_naudl"]
 [ext_resource type="Script" uid="uid://bu0wird5omrpp" path="res://boss/skill_cooldown_display.gd" id="11_bh0xc"]
+[ext_resource type="Texture2D" uid="uid://baijtjgw5vpyl" path="res://assets/sprites/Boss/mace_icon.png" id="14_7ga37"]
+[ext_resource type="Texture2D" uid="uid://ddu872qu0yk7b" path="res://assets/sprites/Boss/grey_grad.png" id="14_mcvhe"]
+[ext_resource type="Texture2D" uid="uid://x32gonlc4d6b" path="res://assets/sprites/Boss/mace1.png" id="16_2802n"]
+[ext_resource type="Texture2D" uid="uid://cptd57q5gpdkj" path="res://assets/sprites/Boss/poison_icon.png" id="16_b7o0r"]
+[ext_resource type="Texture2D" uid="uid://kcc10vej8d8i" path="res://assets/sprites/Boss/skeleton_icon.png" id="17_gptwq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hcu6l"]
 atlas = ExtResource("2_270ai")
@@ -78,7 +81,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 10.0
+"speed": 15.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b105h"]
@@ -86,250 +89,62 @@ radius = 46.0
 height = 92.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b105h"]
-size = Vector2(106, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_naudl"]
-atlas = ExtResource("5_ti23b")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6w25r"]
-atlas = ExtResource("5_ti23b")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yerig"]
-atlas = ExtResource("5_ti23b")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bfjv4"]
-atlas = ExtResource("5_ti23b")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_y10lg"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_naudl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6w25r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yerig")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bfjv4")
-}],
-"loop": false,
-"name": &"default",
-"speed": 15.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ti23b"]
-atlas = ExtResource("5_hcu6l")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_glpsb"]
-atlas = ExtResource("5_hcu6l")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_205ta"]
-atlas = ExtResource("5_hcu6l")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3bina"]
-atlas = ExtResource("5_hcu6l")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_naudl"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ti23b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_glpsb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_205ta")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3bina")
-}],
-"loop": false,
-"name": &"default",
-"speed": 15.0
-}]
+size = Vector2(116, 20)
 
 [sub_resource type="Animation" id="Animation_hcu6l"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:frame")
+tracks/0/path = NodePath("AttackHitbox/Sprite2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"update": 0,
+"values": [Vector2(52, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:modulate")
+tracks/1/path = NodePath("AttackHitbox/Sprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [0.7853982]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:rotation")
+tracks/2/path = NodePath("AttackHitbox/Sprite2D:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.7853982]
+"values": [Vector2(6, 6)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:position")
+tracks/3/path = NodePath("AttackHitbox/Sprite2D:skew")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(58, -3.8146973e-06)]
+"values": [0.0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:flip_h")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("AttackHitbox/MeleeStab/AnimatedSprite2D:frame")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("AttackHitbox/MeleeStab/AnimatedSprite2D:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_bh0xc"]
-resource_name = "melee_stab"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackHitbox/MeleeStab/AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AttackHitbox/MeleeStab/AnimatedSprite2D:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_6w25r"]
-resource_name = "melee_sweep"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.16666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.7853982]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(58, -3.8146973e-06)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:flip_h")
+tracks/4/path = NodePath("AttackHitbox/Sprite2D:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -338,77 +153,176 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
-
-[sub_resource type="Animation" id="Animation_ti23b"]
-resource_name = "melee_sweep2"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.16666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2.3561945]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(57, 3.8146973e-06)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("AttackHitbox/MeleeSweep/AnimatedSprite2D:flip_h")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MaceDefaultSprite:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_bh0xc"]
+resource_name = "melee_sweep1"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackHitbox/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-35, -10), Vector2(36, 36), Vector2(52, 0), Vector2(36, -36), Vector2(-35, -10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackHitbox/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [-1.5707964, 1.5707964, 0.7853982, 0.0, -1.5707964]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackHitbox/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(5, 5), Vector2(6, 6), Vector2(6, 6), Vector2(5, 5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackHitbox/Sprite2D:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MaceDefaultSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AttackHitbox/Sprite2D:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_6w25r"]
+resource_name = "melee_stab"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackHitbox/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.13333334, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-35, -10), Vector2(13, 0), Vector2(41, 0), Vector2(51, 0), Vector2(51, 0), Vector2(-35, -10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackHitbox/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.13333334, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-1.5707964, 1.3962634, 0.9599311, 0.7853982, 0.7853982, -1.5707964]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackHitbox/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.13333334, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(5, 5), Vector2(6, 6), Vector2(6, 6), Vector2(6, 6), Vector2(6, 6), Vector2(5, 5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackHitbox/Sprite2D:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.13333334, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -1.2217305, -0.34906584, 0.0, 0.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AttackHitbox/Sprite2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MaceDefaultSprite:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yerig"]
 _data = {
 &"RESET": SubResource("Animation_hcu6l"),
-&"melee_stab": SubResource("Animation_bh0xc"),
-&"melee_sweep1": SubResource("Animation_6w25r"),
-&"melee_sweep2": SubResource("Animation_ti23b")
+&"melee_stab": SubResource("Animation_6w25r"),
+&"melee_sweep1": SubResource("Animation_bh0xc")
 }
 
 [node name="Boss" type="CharacterBody2D"]
@@ -421,6 +335,12 @@ MAX_HP = 100.0
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_glpsb")
 
+[node name="MaceDefaultSprite" type="Sprite2D" parent="."]
+position = Vector2(-35, -10)
+rotation = -1.5707964
+scale = Vector2(5, 5)
+texture = ExtResource("16_2802n")
+
 [node name="LevelUpSprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_bkmdk")
@@ -428,6 +348,7 @@ frame = 5
 frame_progress = 1.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_b105h")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -550,10 +471,10 @@ anchors_preset = 0
 
 [node name="Label" type="Label" parent="CanvasLayer/StatDisplay"]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 428.0
-offset_right = 96.0
-offset_bottom = 633.0
+offset_left = 25.0
+offset_top = 368.0
+offset_right = 112.0
+offset_bottom = 573.0
 text = "MAX HP:
 REGEN:
 PHYS DEF:
@@ -625,7 +546,6 @@ patch_margin_bottom = 4
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/DeathMenu"]
 
 [node name="SkillCooldownDisplay" type="Control" parent="CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -640,26 +560,63 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -90.0
+offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SkillCooldownDisplay/CenterContainer"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/Panel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MaceProg" type="TextureProgressBar" parent="CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
 max_value = 0.8
-fill_mode = 4
+step = 0.1
+value = 0.3
+fill_mode = 5
+texture_under = ExtResource("14_7ga37")
+texture_progress = ExtResource("14_mcvhe")
 
-[node name="Panel2" type="Panel" parent="CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="PoisonProg" type="TextureProgressBar" parent="CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+max_value = 7.0
+step = 0.1
+value = 7.0
+fill_mode = 5
+texture_under = ExtResource("16_b7o0r")
+texture_progress = ExtResource("14_mcvhe")
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="SkeletonProg" type="TextureProgressBar" parent="CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+max_value = 15.0
+step = 0.1
+value = 15.0
+fill_mode = 5
+texture_under = ExtResource("17_gptwq")
+texture_progress = ExtResource("14_mcvhe")
 
 [node name="AttackHitbox" type="Node2D" parent="."]
 
@@ -671,26 +628,12 @@ collision_mask = 8
 position = Vector2(73, -0.5)
 shape = SubResource("RectangleShape2D_b105h")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AttackHitbox/MeleeStab"]
-modulate = Color(1, 1, 1, 0)
-position = Vector2(73, 2.999997)
-scale = Vector2(6.6249995, 6.6249995)
-sprite_frames = SubResource("SpriteFrames_y10lg")
-
 [node name="MeleeSweep" type="Area2D" parent="AttackHitbox"]
 collision_layer = 32
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="AttackHitbox/MeleeSweep"]
-polygon = PackedVector2Array(0, 0, 70, -50, 90, 0, 70, 50)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AttackHitbox/MeleeSweep"]
-modulate = Color(1, 1, 1, 0)
-position = Vector2(58, -3.8146973e-06)
-rotation = 0.7853982
-scale = Vector2(5, 5)
-sprite_frames = SubResource("SpriteFrames_naudl")
-flip_h = true
+polygon = PackedVector2Array(0, 0, 60, -70, 100, 0, 60, 70)
 
 [node name="AttackPlayer" type="AnimationPlayer" parent="AttackHitbox"]
 root_node = NodePath("../..")
@@ -706,6 +649,13 @@ stream = ExtResource("10_naudl")
 volume_db = -10.0
 pitch_scale = 0.7
 
+[node name="Sprite2D" type="Sprite2D" parent="AttackHitbox"]
+visible = false
+position = Vector2(52, 0)
+rotation = 0.7853982
+scale = Vector2(6, 6)
+texture = ExtResource("16_2802n")
+
 [node name="MeleeComboTimer" type="Timer" parent="."]
 one_shot = true
 
@@ -719,6 +669,8 @@ one_shot = true
 collision_mask = 65
 
 [node name="Summons" type="Node2D" parent="."]
+
+[node name="HitIFTimer" type="Timer" parent="."]
 
 [connection signal="level_up_option_selected" from="CanvasLayer/LevelUpMenu" to="." method="_on_level_up_menu_level_up_option_selected"]
 [connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button" to="CanvasLayer/LevelUpMenu" method="_on_button_pressed"]
