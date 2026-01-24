@@ -329,7 +329,7 @@ _data = {
 collision_layer = 2
 collision_mask = 65
 script = ExtResource("1_b105h")
-MAX_HP = 2.0
+MAX_HP = 100.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(6, 6)

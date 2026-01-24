@@ -13,7 +13,6 @@ todo:
 - move speed upgrade
 - more sfx for mace stab, heroes
 - check enemy scaling stats
-- display cooldown for skills
 
 
 
