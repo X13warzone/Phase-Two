@@ -329,7 +329,7 @@ _data = {
 collision_layer = 2
 collision_mask = 65
 script = ExtResource("1_b105h")
-MAX_HP = 100.0
+MAX_HP = 2.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(6, 6)
@@ -354,6 +354,7 @@ shape = SubResource("CapsuleShape2D_b105h")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HPBar" type="TextureProgressBar" parent="CanvasLayer"]
+z_as_relative = false
 offset_left = 426.0
 offset_top = 20.0
 offset_right = 526.0
@@ -466,6 +467,7 @@ patch_margin_bottom = 4
 stream = ExtResource("7_bfjv4")
 
 [node name="StatDisplay" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 
@@ -552,6 +554,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("11_bh0xc")
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/SkillCooldownDisplay"]
@@ -671,6 +674,8 @@ collision_mask = 65
 [node name="Summons" type="Node2D" parent="."]
 
 [node name="HitIFTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
 
 [connection signal="level_up_option_selected" from="CanvasLayer/LevelUpMenu" to="." method="_on_level_up_menu_level_up_option_selected"]
 [connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button" to="CanvasLayer/LevelUpMenu" method="_on_button_pressed"]

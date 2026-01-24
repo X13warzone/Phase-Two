@@ -27,9 +27,11 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if action == ACTION.FORWARD and position.distance_squared_to(GlobalScript.get_boss_position()) > 13500:
+	if action == ACTION.FORWARD and position.distance_squared_to(GlobalScript.get_boss_position()) > 90000:
 		move_target = navigation_agent_2d.get_next_path_position()
 		velocity = (move_target - position).normalized() * SPEED
+	else:
+		velocity = Vector2.ZERO
 	
 	move_and_slide()
 

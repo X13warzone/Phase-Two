@@ -24,6 +24,8 @@ const MAGIC_POOL = preload("res://projectile/magic_pool.tscn")
 const SKELETON_MINION = preload("res://entity/skeleton_minion.tscn")
 
 
+var alive: bool = true
+
 var SPEED = 150.0
 
 var HP_REGEN: int = 0
@@ -155,14 +157,17 @@ func summon_skeletons() -> void:
 
 
 func take_hit(dmg: float, dmg_type: DMG_TYPE) -> void:
-	super.take_hit(dmg, dmg_type)
-	hp_bar.value = curr_hp * 100.0 / MAX_HP
+	if hit_if_timer.is_stopped():
+		hit_if_timer.start(0.2)
+		super.take_hit(dmg, dmg_type)
+		hp_bar.value = curr_hp * 100.0 / MAX_HP
 
 
 func die() -> void:
-	print("I died!")
-	death_menu.show()
-	get_tree().paused = true
+	if alive:
+		alive = false
+		death_menu.show()
+		get_tree().paused = true
 
 """
 MAXHP - Max HP
@@ -190,10 +195,10 @@ func level_up() -> void:
 	upgrade_options.clear()
 	if level < 4:
 		all_options = [
-			["MAXHP", [5, 10]],
-			["REGEN", [1, 2]],
+			["MAXHP", [5, 5]],
+			["REGEN", [1, 1]],
 			["PYDEF", [1, 2]],
-			["PYDMG", [1, 2]]
+			["PYDMG", [1, 1]]
 		]
 	elif level == 4:
 		all_options = [
@@ -203,10 +208,10 @@ func level_up() -> void:
 		]
 	elif level < 7:
 		all_options = [
-			["MAXHP", [5, 10]],
-			["REGEN", [1, 2]],
-			["PYDEF", [1, 2]],
-			["MGDEF", [1, 2]],
+			["MAXHP", [6, 8]],
+			["REGEN", [1, 1]],
+			["PYDEF", [1, 3]],
+			["MGDEF", [1, 3]],
 			["PYDMG", [1, 2]],
 			["MGDMG", [1, 2]],
 			["SKLCD", [1, 5]]
@@ -219,13 +224,13 @@ func level_up() -> void:
 		]
 	else:
 		all_options = [
-			["MAXHP", [5, 10]],
-			["REGEN", [1, 2]],
-			["PYDEF", [1, 2]],
-			["MGDEF", [1, 2]],
+			["MAXHP", [8, 12]],
+			["REGEN", [2, 5]],
+			["PYDEF", [2, 5]],
+			["MGDEF", [2, 5]],
 			["PYDMG", [1, 2]],
 			["MGDMG", [1, 2]],
-			["SKLCD", [1, 5]],
+			["SKLCD", [3, 9]],
 			["SMNS", [0, 0]]
 		]
 
