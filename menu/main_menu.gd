@@ -22,7 +22,8 @@ func _on_options_button_pressed() -> void:
 
 
 func _on_credits_button_pressed() -> void:
-	pass # Replace with function body.
+	credits_menu.show()
+	menu_buttons.hide()
 
 
 func _on_exit_button_pressed() -> void:
@@ -36,3 +37,8 @@ func _on_options_back_button_pressed() -> void:
 
 func _on_bg_music_finished() -> void:
 	$BGMusic.play()
+
+
+func _on_credits_back_button_pressed() -> void:
+	credits_menu.hide()
+	menu_buttons.show()

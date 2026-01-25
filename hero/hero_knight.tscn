@@ -63,6 +63,10 @@ radius = 20.0
 script = ExtResource("2_aa0ig")
 SPEED = 50.0
 job = 2
+MAX_HP = 30.0
+phys_def = 5
+mag_def = 5
+melee_damage = 3
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 scale = Vector2(4, 4)

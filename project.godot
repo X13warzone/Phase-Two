@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Umgmc 2026 Summer Jam"
-run/main_scene="uid://khd1vd2i4r7s"
+run/main_scene="uid://c1ll852wvjskf"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
@@ -29,6 +29,8 @@ window/stretch/mode="viewport"
 [global_group]
 
 Hero=""
+xp_orb=""
+ProjDestructible=""
 
 [input]
 

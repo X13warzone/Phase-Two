@@ -58,7 +58,7 @@ func take_hit(dmg: float, dmg_type: DMG_TYPE) -> void:
 
 
 func attack() -> void:
-	bodies_in_range[0].take_hit(1.0, Entity.DMG_TYPE.PHYS)
+	bodies_in_range[0].take_hit(melee_damage, Entity.DMG_TYPE.PHYS)
 
 
 func die() -> void:

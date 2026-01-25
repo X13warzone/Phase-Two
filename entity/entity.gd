@@ -23,12 +23,11 @@ var curr_hp: float = MAX_HP:
 		if curr_hp > MAX_HP:
 			curr_hp = MAX_HP
 
+@export var phys_def: int = 0
+@export var mag_def: int = 0
 
-var phys_def: int = 0
-var mag_def: int = 0
-
-var melee_damage: int = 1
-var magic_damage: int = 1
+@export var melee_damage: int = 1
+@export var magic_damage: int = 1
 
 
 func _ready() -> void:

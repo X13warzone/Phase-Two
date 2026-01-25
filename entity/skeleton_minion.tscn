@@ -54,6 +54,8 @@ collision_layer = 4
 collision_mask = 65
 motion_mode = 1
 script = ExtResource("1_ry7gy")
+phys_def = 2
+mag_def = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_1delc")

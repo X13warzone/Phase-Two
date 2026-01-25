@@ -124,7 +124,10 @@ radius = 150.0
 script = ExtResource("2_16qmp")
 SPEED = 40.0
 job = 1
-MAX_HP = 8.0
+MAX_HP = 16.0
+phys_def = 2
+mag_def = 5
+magic_damage = 3
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 scale = Vector2(4, 4)

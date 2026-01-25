@@ -7,10 +7,7 @@ University of Melbourne Game Maker's Club Summer Game Jam of 2026
 todo:
 - options menu for controls
 - add ultimate
-- possibly balancing dmg build?
-- move speed upgrade
-- more sfx for mace stab, heroes
-- check enemy scaling stats
+- more sfx for heroes?
 
 
 

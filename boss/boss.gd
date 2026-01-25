@@ -8,7 +8,6 @@ var action: ACTION = ACTION.WALK
 @onready var summon_skeleton_timer: Timer = $SummonSkeletonTimer
 @onready var melee_combo_timer: Timer = $MeleeComboTimer
 @onready var magic_pool_timer: Timer = $MagicPoolTimer
-@onready var hp_bar: TextureProgressBar = $CanvasLayer/HPBar
 @onready var attack_player: AnimationPlayer = $AttackHitbox/AttackPlayer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var level_up_menu: Control = $CanvasLayer/LevelUpMenu
@@ -19,6 +18,11 @@ var action: ACTION = ACTION.WALK
 @onready var wall_checker: RayCast2D = $WallChecker
 @onready var hit_if_timer: Timer = $HitIFTimer
 @onready var mace_stab_sfx: AudioStreamPlayer = $AttackHitbox/MaceStabSFX
+@onready var hp_bar: TextureProgressBar = $CanvasLayer/HPBar
+@onready var xp_bar: TextureProgressBar = $CanvasLayer/HPBar/XPBar
+@onready var skill_cooldown_display: Control = $CanvasLayer/SkillCooldownDisplay
+@onready var poison_prog: TextureProgressBar = $CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/MarginContainer2/PoisonProg
+@onready var skeleton_prog: TextureProgressBar = $CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/MarginContainer3/SkeletonProg
 
 
 const MAGIC_POOL = preload("res://projectile/magic_pool.tscn")
@@ -53,8 +57,8 @@ var summon_skeleton_count: int = 2  ## This will be upticked once everytime SMNS
 var skill_coolddown: int = 0:
 	set(new_cd):
 		skill_coolddown = new_cd
-		$CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/MarginContainer/PoisonProg.max_value = 7.0 * (100.0 / (100.0 + skill_coolddown))
-		$CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/MarginContainer3/SkeletonProg.max_value = 15.0 * (100.0 / (100.0 + skill_coolddown))
+		poison_prog.max_value = 7.0 * (100.0 / (100.0 + skill_coolddown))
+		skeleton_prog.max_value = 15.0 * (100.0 / (100.0 + skill_coolddown))
 
 
 func _process(delta: float) -> void:
@@ -131,12 +135,17 @@ func attack_melee_sweep(frameset: int = 1) -> void:
 			attack_player.play("melee_sweep1")
 		2:
 			attack_player.play_backwards("melee_sweep1")
+	$AttackHitbox/MeleeSweep.monitorable = true
 	mace_sweep_sfx.play()
 	for b in $AttackHitbox/MeleeSweep.get_overlapping_bodies():
-		if b.alive:
+		if b.has_method("take_hit"):
 			enemies_hit += 1
 			b.take_knockback(b.position - position, 70)
 			b.take_hit(melee_damage, DMG_TYPE.PHYS)
+	for b in $AttackHitbox/MeleeSweep.get_overlapping_areas():
+		if b.get_parent().is_in_group("ProjDestructible"):
+			print("new swat")
+			b.get_parent().queue_free()
 	if enemies_hit:
 		mace_hit_sfx.play()
 
@@ -160,6 +169,8 @@ func summon_skeletons() -> void:
 		c = SKELETON_MINION.instantiate()
 		$Summons.add_child(c)
 		c.position = summon_pos + position
+		c.MAX_HP *= MAX_HP / 50.0  ## Scales 2x with our max hp
+		c.melee_damage *= melee_damage * 0.5  ## Scales 0.5x with our phys dmg
 
 
 func take_hit(dmg: float, dmg_type: DMG_TYPE) -> void:
@@ -184,6 +195,7 @@ PYDMG - Physical damage
 MGDMG - Magical damage
 SKLCD - Skill cooldowns
 SMNS - Summon 1 additional skeleton
+MSPED - Movement speed
 
 Unlockable skills:
 RMGP - Ranged magic pool
@@ -204,7 +216,8 @@ func level_up() -> void:
 			["MAXHP", [5, 5]],
 			["REGEN", [1, 1]],
 			["PYDEF", [1, 2]],
-			["PYDMG", [1, 1]]
+			["PYDMG", [1, 1]],
+			["MSPED", [5, 10]]
 		]
 	elif level == 4:
 		all_options = [
@@ -220,7 +233,8 @@ func level_up() -> void:
 			["MGDEF", [1, 3]],
 			["PYDMG", [1, 2]],
 			["MGDMG", [1, 2]],
-			["SKLCD", [1, 5]]
+			["SKLCD", [1, 5]],
+			["MSPED", [7, 12]]
 		]
 	elif level == 7:
 		all_options = [
@@ -237,7 +251,8 @@ func level_up() -> void:
 			["PYDMG", [1, 2]],
 			["MGDMG", [1, 2]],
 			["SKLCD", [3, 9]],
-			["SMNS", [0, 0]]
+			["SMNS", [0, 0]],
+			["MSPED", [10, 15]]
 		]
 
 	temp_options = all_options
@@ -280,6 +295,8 @@ func get_upgrade_text(upgrade_code: String, upgrade_value: int) -> String:
 				res = "(CALL THE GANG)\n\nUNLOCK SUMMONING SKELETONS (E)"
 		"SKLCD":
 			res = "(CHUG ENERGY DRINK)\n\nREDUCE SKILL COOLDOWNS"
+		"MSPED":
+			res = "(WALK 500 MILES)\n\nINCREASE MOVEMENT SPEED"
 	return res
 
 
@@ -304,13 +321,15 @@ func _on_level_up_menu_level_up_option_selected(option_num: int) -> void:
 			magic_damage += upgrade_value
 		"RMGP":
 			unlock_magic_pool = true
-			$CanvasLayer/SkillCooldownDisplay.magic_poison_unlocked = true
+			skill_cooldown_display.magic_poison_unlocked = true
 		"SMNS":
 			unlock_summon_skeleton = true
 			summon_skeleton_count += 1
-			$CanvasLayer/SkillCooldownDisplay.summon_skeleton_unlocked = true
+			skill_cooldown_display.summon_skeleton_unlocked = true
 		"SKCLD":
 			skill_coolddown += upgrade_value
+		"MSPED":
+			SPEED += upgrade_value
 	stat_label.text = "
 LVL: %d
 XP: %d
@@ -326,3 +345,9 @@ SKILL 2: %s" % [level, xp, MAX_HP, HP_REGEN, phys_def, mag_def, melee_damage, ma
 
 func get_xp(xp_gain: int) -> void:
 	xp += xp_gain
+	xp_bar.value = xp * 100.0 / ((level - 1) * 2 + 1)
+
+
+func heal(life_gained: float) -> void:
+	super.heal(life_gained)
+	hp_bar.value = curr_hp * 100.0 / MAX_HP

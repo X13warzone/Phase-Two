@@ -33,9 +33,11 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuButtons"]
 layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="StartButton" type="Button" parent="MenuButtons/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "START"
 flat = true
 
@@ -55,6 +57,7 @@ patch_margin_bottom = 4
 
 [node name="OptionsButton" type="Button" parent="MenuButtons/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 36
 text = "OPTIONS"
 flat = true
 
@@ -74,6 +77,7 @@ patch_margin_bottom = 4
 
 [node name="CreditsButton" type="Button" parent="MenuButtons/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 36
 text = "CREDITS"
 flat = true
 
@@ -125,27 +129,25 @@ layout_mode = 2
 [node name="Label" type="Label" parent="CreditsMenu/VBoxContainer"]
 layout_mode = 2
 text = "MAIN DEVELOPER: X13warzone
-MAIN EVERYTHING ELSE: X13warzone
+Character Art: X13warzone
 
-Scene transition: The Shaggy Dev on Youtube
 Castle tileset: pokrasmemas on itch.io
 Not Jam Soundtrack: Not Jam on itch.io
-Mace sound effect: BoostSound on Youtube
-Hammer hit sound effect: Universfield on Pixabay
-8 bit explosion sound effect 1: u_b32baquv5u on Pixabay
-8 bit power up sound effect: https://pixabay.com/sound-effects/film-special-effects-8-bit-powerup-6768/
-8 bit explosion sound effect 2: https://pixabay.com/sound-effects/film-special-effects-8-bit-explosion-10-340462/
-"
+
+Special thanks to the University of Melbourne
+Game Maker's Club
+
+And thank you for playing!"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="CreditsMenu/VBoxContainer"]
+[node name="CreditsBackButton" type="Button" parent="CreditsMenu/VBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "BACK"
 flat = true
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CreditsMenu/VBoxContainer/Button"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CreditsMenu/VBoxContainer/CreditsBackButton"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -197,4 +199,5 @@ patch_margin_bottom = 4
 [connection signal="pressed" from="MenuButtons/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="CreditsMenu/VBoxContainer/CreditsBackButton" to="." method="_on_credits_back_button_pressed"]
 [connection signal="pressed" from="OptionsMenu/VBoxContainer/OptionsBackButton" to="." method="_on_options_back_button_pressed"]

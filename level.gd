@@ -6,7 +6,7 @@ extends Node
 @onready var hero_party: Node2D = $HeroParty
 @onready var boss: CharacterBody2D = $Boss
 @onready var wave_label: Label = $CanvasLayer/WaveLabel
-@onready var options_menu: NinePatchRect = $CanvasLayer/TextureRect
+@onready var pause_menu: Control = $CanvasLayer/PauseMenu
 
 
 const HERO_MAGE = preload("res://hero/hero_mage.tscn")
@@ -26,18 +26,10 @@ const WAVES = {
 var wave: int = 0
 
 
-var heroes_alive: int = -1
-	#:set(new_ha):
-		#heroes_alive = new_ha
-		#if new_ha <= 0:
-			#wave += 1
-			#spawn_wave()
-
-
 func _ready() -> void:
-	pass
-	#GlobalScript.heroes_slain_updated.connect(_update_score)
-	#heroes_alive = 0
+	GlobalScript.heroes_slain_updated.connect(_update_score)
+	GlobalScript.heroes_slain = 0
+
 
 
 func _process(delta: float) -> void:
@@ -45,7 +37,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("cancel"):
 		get_tree().paused = !get_tree().paused
-		options_menu.visible = get_tree().paused
+		pause_menu.visible = get_tree().paused
 	
 	if get_tree().get_node_count_in_group("Hero") <= 0:
 		wave += 1
@@ -54,8 +46,6 @@ func _process(delta: float) -> void:
 
 func _update_score(heroes_slain) -> void:
 	score_1_label.text = "FOOLISH HEROES VANQUISHED: %d" % heroes_slain
-
-	heroes_alive -= 1
 
 
 func spawn_unit(unit_name: String, location: Vector2) -> void:
@@ -97,9 +87,11 @@ func get_random_loc() -> Vector2:
 
 
 func spawn_wave() -> void:
-	boss.curr_hp += boss.HP_REGEN
+	for xp_orb in get_tree().get_nodes_in_group("xp_orb"):
+		boss.get_xp(xp_orb.xp_gain)
+		xp_orb.queue_free()
+	boss.heal(boss.HP_REGEN)
 	if WAVES.get(wave, 0):
-		heroes_alive = WAVES[wave][0] + WAVES[wave][1] + WAVES[wave][2] + WAVES[wave][3]
 		for hero in WAVES[wave][0]:
 			spawn_unit("Knight", get_random_loc())
 		for hero in WAVES[wave][1]:
@@ -113,8 +105,7 @@ func spawn_wave() -> void:
 		var archers = randi_range(ceili(wave * 0.4), ceili(wave * 0.9))
 		var mages = randi_range(floori(wave * 0.5), floori(wave * 0.9))
 		var clerics = randi_range(floori(wave * 0.4), ceili(wave * 0.8))
-		heroes_alive = knights + archers + mages + clerics
-		
+	
 		for hero in knights:
 			spawn_unit("Knight", get_random_loc())
 		for hero in archers:
@@ -127,3 +118,13 @@ func spawn_wave() -> void:
 
 func _on_bg_music_finished() -> void:
 	$BGMusic.play()
+
+
+func _on_pause_back_button_pressed() -> void:
+	get_tree().paused = false
+	pause_menu.visible = false
+
+
+func _on_pause_main_button_pressed() -> void:
+	get_tree().paused = false
+	SceneTransition.change_scene("res://menu/main_menu.tscn")

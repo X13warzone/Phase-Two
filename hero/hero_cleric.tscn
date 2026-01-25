@@ -61,7 +61,9 @@ radius = 250.0
 
 [node name="HeroCleric" instance=ExtResource("1_xcj77")]
 script = ExtResource("2_cinu1")
-MAX_HP = 7.0
+MAX_HP = 15.0
+phys_def = 1
+mag_def = 4
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 scale = Vector2(4, 4)

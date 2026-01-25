@@ -1,14 +1,8 @@
 extends VBoxContainer
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	$HBoxContainer/SoundSlider.value = GlobalSettings.effect_db
+	$HBoxContainer2/MusicSlider.value = GlobalSettings.music_db
 
 
 func _on_sound_slider_value_changed(value: float) -> void:

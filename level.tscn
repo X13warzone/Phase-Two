@@ -518,35 +518,88 @@ offset_left = 800.0
 offset_top = 20.0
 offset_right = 1139.0
 offset_bottom = 64.0
+text = "FOOLISH HEROES SLAIN"
 
 [node name="WaveLabel" type="Label" parent="CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="TextureRect" type="NinePatchRect" parent="CanvasLayer"]
+[node name="PauseMenu" type="Control" parent="CanvasLayer"]
+process_mode = 2
 visible = false
+layout_mode = 3
+anchors_preset = 0
 offset_left = 505.0
 offset_top = 260.0
 offset_right = 678.0
 offset_bottom = 318.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PauseMainButton" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "MAIN MENU"
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/PauseMenu/VBoxContainer/PauseMainButton"]
+modulate = Color(1, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("5_km5ld")
 patch_margin_left = 4
 patch_margin_top = 4
 patch_margin_right = 4
 patch_margin_bottom = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TextureRect"]
-layout_mode = 0
-offset_right = 172.0
-offset_bottom = 60.0
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+layout_mode = 2
 
-[node name="OptionsMenu" parent="CanvasLayer/TextureRect/MarginContainer" instance=ExtResource("5_n6hdu")]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PauseMenu/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="OptionsMenu" parent="CanvasLayer/PauseMenu/VBoxContainer/MarginContainer/MarginContainer" instance=ExtResource("5_n6hdu")]
 process_mode = 2
 layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/PauseMenu/VBoxContainer/MarginContainer"]
+show_behind_parent = true
+layout_mode = 2
+texture = ExtResource("5_km5ld")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="PauseBackButton" type="Button" parent="CanvasLayer/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "BACK"
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/PauseMenu/VBoxContainer/PauseBackButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_km5ld")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 process_mode = 1
@@ -559,3 +612,5 @@ tile_set = SubResource("TileSet_km5ld")
 process_mode = 1
 
 [connection signal="finished" from="BGMusic" to="." method="_on_bg_music_finished"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/PauseMainButton" to="." method="_on_pause_main_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/PauseBackButton" to="." method="_on_pause_back_button_pressed"]

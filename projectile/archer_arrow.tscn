@@ -27,9 +27,10 @@ height = 12.0
 radius = 4.0
 height = 34.0
 
-[node name="ArcherArrow" instance=ExtResource("1_pahua")]
+[node name="ArcherArrow" groups=["ProjDestructible"] instance=ExtResource("1_pahua")]
 script = ExtResource("2_4x04c")
-speed = 150.0
+speed = 220.0
+damage = 2
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 rotation = 0.7853982
@@ -47,9 +48,11 @@ shape = SubResource("CapsuleShape2D_jkot1")
 
 [node name="HitboxCheck" parent="." index="2"]
 collision_layer = 16
-collision_mask = 65
+collision_mask = 97
 
 [node name="CollisionShape2D" parent="HitboxCheck" index="0"]
 position = Vector2(1, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_lr0g4")
+
+[connection signal="area_entered" from="HitboxCheck" to="." method="_on_hitbox_check_area_entered"]
