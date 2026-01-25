@@ -12,6 +12,7 @@ func _process(delta: float) -> void:
 			action = ACTION.CHANNEL
 			attack_timer.start(2)
 			velocity = Vector2.ZERO
+			weapon_sprite.play("attack")
 		elif action == ACTION.CHANNEL:
 			action = ACTION.FORWARD
 			channel_bar.hide()

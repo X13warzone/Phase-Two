@@ -18,6 +18,7 @@ var action: ACTION = ACTION.WALK
 @onready var death_menu: CenterContainer = $CanvasLayer/DeathMenu
 @onready var wall_checker: RayCast2D = $WallChecker
 @onready var hit_if_timer: Timer = $HitIFTimer
+@onready var mace_stab_sfx: AudioStreamPlayer = $AttackHitbox/MaceStabSFX
 
 
 const MAGIC_POOL = preload("res://projectile/magic_pool.tscn")
@@ -111,11 +112,16 @@ func do_melee_attack() -> void:
 
 
 func attack_melee_stab() -> void:
+	var enemies_hit = 0
 	attack_player.play("melee_stab")
+	mace_stab_sfx.play()
 	for b in $AttackHitbox/MeleeStab.get_overlapping_bodies():
 		if b.alive:
+			enemies_hit += 1
 			b.take_knockback(b.position - position, 0)
 			b.take_hit(melee_damage * 2, DMG_TYPE.PHYS)
+	if enemies_hit:
+		mace_hit_sfx.play()
 
 
 func attack_melee_sweep(frameset: int = 1) -> void:
@@ -242,6 +248,7 @@ func level_up() -> void:
 		temp_options.remove_at(selected_index)
 		level_up_menu.set_option(get_upgrade_text(upgrade_options[i][0], upgrade_options[i][1]))
 
+	$CanvasLayer/LevelUpMenu/LevelUp.play()
 	$LevelUpSprite.play("default")
 	await $LevelUpSprite.animation_finished
 

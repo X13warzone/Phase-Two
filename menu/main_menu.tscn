@@ -12,7 +12,7 @@ script = ExtResource("1_oa53l")
 [node name="BGMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_d3a7t")
 autoplay = true
-parameters/looping = true
+bus = &"Music"
 
 [node name="BG" type="TextureRect" parent="."]
 modulate = Color(0.6996537, 0.6996534, 0.69965345, 1)
@@ -111,11 +111,53 @@ patch_margin_top = 4
 patch_margin_right = 4
 patch_margin_bottom = 4
 
-[node name="CreditsMenu" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="CreditsMenu" type="CenterContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreditsMenu"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CreditsMenu/VBoxContainer"]
+layout_mode = 2
+text = "MAIN DEVELOPER: X13warzone
+MAIN EVERYTHING ELSE: X13warzone
+
+Scene transition: The Shaggy Dev on Youtube
+Castle tileset: pokrasmemas on itch.io
+Not Jam Soundtrack: Not Jam on itch.io
+Mace sound effect: BoostSound on Youtube
+Hammer hit sound effect: Universfield on Pixabay
+8 bit explosion sound effect 1: u_b32baquv5u on Pixabay
+8 bit power up sound effect: https://pixabay.com/sound-effects/film-special-effects-8-bit-powerup-6768/
+8 bit explosion sound effect 2: https://pixabay.com/sound-effects/film-special-effects-8-bit-explosion-10-340462/
+"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="CreditsMenu/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "BACK"
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CreditsMenu/VBoxContainer/Button"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_1x3cv")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
 
 [node name="OptionsMenu" type="CenterContainer" parent="."]
 visible = false
@@ -150,6 +192,7 @@ patch_margin_top = 4
 patch_margin_right = 4
 patch_margin_bottom = 4
 
+[connection signal="finished" from="BGMusic" to="." method="_on_bg_music_finished"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="MenuButtons/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]

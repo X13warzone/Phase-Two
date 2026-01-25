@@ -6,6 +6,7 @@ extends Node
 @onready var hero_party: Node2D = $HeroParty
 @onready var boss: CharacterBody2D = $Boss
 @onready var wave_label: Label = $CanvasLayer/WaveLabel
+@onready var options_menu: NinePatchRect = $CanvasLayer/TextureRect
 
 
 const HERO_MAGE = preload("res://hero/hero_mage.tscn")
@@ -22,7 +23,7 @@ const WAVES = {
 	4: [3, 2, 2, 1],
 	5: [6, 3, 4, 3]
 }
-var wave: int = 6
+var wave: int = 0
 
 
 var heroes_alive: int = -1
@@ -41,6 +42,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	fps_label.text = "FPS: %f" % Engine.get_frames_per_second()
+	
+	if Input.is_action_just_pressed("cancel"):
+		get_tree().paused = !get_tree().paused
+		options_menu.visible = get_tree().paused
 	
 	if get_tree().get_node_count_in_group("Hero") <= 0:
 		wave += 1

@@ -19,6 +19,8 @@ shape = SubResource("CapsuleShape2D_1delc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 
+[node name="WeaponSprite" type="AnimatedSprite2D" parent="."]
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="AttackRange" type="Area2D" parent="."]

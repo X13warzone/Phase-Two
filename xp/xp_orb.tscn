@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bduuv23hqfpxm"]
+[gd_scene load_steps=5 format=3 uid="uid://bduuv23hqfpxm"]
 
 [ext_resource type="Script" uid="uid://bvvhyy7yimgip" path="res://xp/xp_orb.gd" id="1_14ybx"]
 [ext_resource type="Texture2D" uid="uid://cqcpe3c61717q" path="res://assets/sprites/xp_orb.png" id="2_xce7u"]
+[ext_resource type="AudioStream" uid="uid://bsncc5oq53vey" path="res://assets/sounds/8 bit explosion 1.ogg" id="3_xce7u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fb8i0"]
 radius = 20.0
@@ -19,5 +20,9 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_fb8i0")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_xce7u")
+bus = &"Effect"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

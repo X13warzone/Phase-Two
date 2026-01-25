@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://do4weswpwvmgr"]
+[gd_scene load_steps=21 format=3 uid="uid://do4weswpwvmgr"]
 
 [ext_resource type="PackedScene" uid="uid://bfuvo2lw0hmk1" path="res://hero/hero_base.tscn" id="1_7sqll"]
 [ext_resource type="Script" uid="uid://o5d3hu7fiyt" path="res://hero/hero_mage.gd" id="2_16qmp"]
 [ext_resource type="Texture2D" uid="uid://baqti7xl2a1ob" path="res://assets/sprites/Heroes/mage1.png" id="3_aquka"]
+[ext_resource type="Texture2D" uid="uid://c864h2mpgaul3" path="res://assets/sprites/Heroes/book1.png" id="4_ux0nr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ux0nr"]
 atlas = ExtResource("3_aquka")
@@ -40,6 +41,82 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7drqw"]
+atlas = ExtResource("4_ux0nr")
+region = Rect2(0, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_st8ed"]
+atlas = ExtResource("4_ux0nr")
+region = Rect2(16, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgbmv"]
+atlas = ExtResource("4_ux0nr")
+region = Rect2(32, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1evmf"]
+atlas = ExtResource("4_ux0nr")
+region = Rect2(48, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkeot"]
+atlas = ExtResource("4_ux0nr")
+region = Rect2(64, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23oga"]
+atlas = ExtResource("4_ux0nr")
+region = Rect2(80, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_et2b7"]
+atlas = ExtResource("4_ux0nr")
+region = Rect2(96, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whne7"]
+atlas = ExtResource("4_ux0nr")
+region = Rect2(112, 0, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4dkh"]
+atlas = ExtResource("4_ux0nr")
+region = Rect2(112, 0, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mif2j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7drqw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_st8ed")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgbmv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1evmf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkeot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23oga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_et2b7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whne7")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4dkh")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_aquka"]
 radius = 150.0
 
@@ -53,6 +130,14 @@ MAX_HP = 8.0
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_7drqw")
 autoplay = "default"
+
+[node name="WeaponSprite" parent="." index="2"]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_mif2j")
+animation = &"attack"
+autoplay = "default"
+frame = 7
+frame_progress = 1.0
 
 [node name="CollisionShape2D" parent="AttackRange" index="0"]
 shape = SubResource("CircleShape2D_aquka")

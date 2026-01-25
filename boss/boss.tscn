@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cbbremwv48hjp"]
+[gd_scene load_steps=35 format=3 uid="uid://cbbremwv48hjp"]
 
 [ext_resource type="Script" uid="uid://b61qtanarum40" path="res://boss/boss.gd" id="1_b105h"]
 [ext_resource type="Texture2D" uid="uid://b5jeqkcsryfjk" path="res://assets/sprites/Boss/boss1.png" id="2_270ai"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://x32gonlc4d6b" path="res://assets/sprites/Boss/mace1.png" id="16_2802n"]
 [ext_resource type="Texture2D" uid="uid://cptd57q5gpdkj" path="res://assets/sprites/Boss/poison_icon.png" id="16_b7o0r"]
 [ext_resource type="Texture2D" uid="uid://kcc10vej8d8i" path="res://assets/sprites/Boss/skeleton_icon.png" id="17_gptwq"]
+[ext_resource type="AudioStream" uid="uid://bj4x78gopnjn6" path="res://assets/sounds/tool swing.ogg" id="19_b7o0r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hcu6l"]
 atlas = ExtResource("2_270ai")
@@ -166,82 +167,6 @@ tracks/5/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_bh0xc"]
-resource_name = "melee_sweep1"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackHitbox/Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.16666667, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-35, -10), Vector2(36, 36), Vector2(52, 0), Vector2(36, -36), Vector2(-35, -10)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AttackHitbox/Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.16666667, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [-1.5707964, 1.5707964, 0.7853982, 0.0, -1.5707964]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AttackHitbox/Sprite2D:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(5, 5), Vector2(6, 6), Vector2(6, 6), Vector2(5, 5)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AttackHitbox/Sprite2D:skew")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 0.0, 0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("MaceDefaultSprite:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.16666667, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [true, false, false, true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("AttackHitbox/Sprite2D:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.033333335, 0.16666667, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [false, true, true, false]
-}
-
 [sub_resource type="Animation" id="Animation_6w25r"]
 resource_name = "melee_stab"
 length = 0.2
@@ -318,6 +243,82 @@ tracks/5/keys = {
 "values": [true, false, false, true]
 }
 
+[sub_resource type="Animation" id="Animation_bh0xc"]
+resource_name = "melee_sweep1"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackHitbox/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-35, -10), Vector2(36, 36), Vector2(52, 0), Vector2(36, -36), Vector2(-35, -10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackHitbox/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [-1.5707964, 1.5707964, 0.7853982, 0.0, -1.5707964]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackHitbox/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(5, 5), Vector2(6, 6), Vector2(6, 6), Vector2(5, 5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AttackHitbox/Sprite2D:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MaceDefaultSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AttackHitbox/Sprite2D:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.16666667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yerig"]
 _data = {
 &"RESET": SubResource("Animation_hcu6l"),
@@ -326,6 +327,7 @@ _data = {
 }
 
 [node name="Boss" type="CharacterBody2D"]
+process_mode = 1
 collision_layer = 2
 collision_mask = 65
 script = ExtResource("1_b105h")
@@ -646,11 +648,19 @@ libraries = {
 
 [node name="MaceSweepSFX" type="AudioStreamPlayer" parent="AttackHitbox"]
 stream = ExtResource("9_3bina")
+bus = &"Effect"
 
 [node name="MaceHitSFX" type="AudioStreamPlayer" parent="AttackHitbox"]
 stream = ExtResource("10_naudl")
-volume_db = -10.0
+volume_db = -15.0
 pitch_scale = 0.7
+bus = &"Effect"
+
+[node name="MaceStabSFX" type="AudioStreamPlayer" parent="AttackHitbox"]
+stream = ExtResource("19_b7o0r")
+volume_db = 10.0
+pitch_scale = 0.9
+bus = &"Effect"
 
 [node name="Sprite2D" type="Sprite2D" parent="AttackHitbox"]
 visible = false

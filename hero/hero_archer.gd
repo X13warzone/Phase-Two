@@ -1,5 +1,6 @@
 extends Hero
 
+
 const ARCHER_ARROW = preload("res://projectile/archer_arrow.tscn")
 
 
@@ -11,6 +12,7 @@ func _process(delta: float) -> void:
 			action = ACTION.CHANNEL
 			attack_timer.start(1)
 			velocity = Vector2.ZERO
+			weapon_sprite.play("attack")
 		elif action == ACTION.CHANNEL:
 			action = ACTION.FORWARD
 			channel_bar.hide()

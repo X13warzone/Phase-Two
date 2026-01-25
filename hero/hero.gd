@@ -22,6 +22,7 @@ enum ACTION {RETREAT, ATTACK, FORWARD, HEAL, REGROUP, STUNNED, CHANNEL}
 @onready var projectiles: Node2D = $Projectiles
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
+@onready var weapon_sprite: AnimatedSprite2D = $WeaponSprite
 
 
 const XP_ORB = preload("res://xp/xp_orb.tscn")
@@ -42,8 +43,10 @@ func _process(delta: float) -> void:
 	move_to_boss()
 	if velocity.x < 0:
 		animated_sprite_2d.flip_h = true
+		weapon_sprite.flip_h = true
 	elif velocity.x > 0:
 		animated_sprite_2d.flip_h = false
+		weapon_sprite.flip_h = false
 
 
 func _physics_process(delta: float) -> void:
@@ -90,6 +93,7 @@ func die() -> void:
 	var c = XP_ORB.instantiate()
 	add_sibling(c)
 	c.position = position
+	
 	queue_free()
 
 

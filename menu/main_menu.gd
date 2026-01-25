@@ -32,3 +32,7 @@ func _on_exit_button_pressed() -> void:
 func _on_options_back_button_pressed() -> void:
 	options_menu.hide()
 	menu_buttons.show()
+
+
+func _on_bg_music_finished() -> void:
+	$BGMusic.play()
