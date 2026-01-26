@@ -31,6 +31,7 @@ const SKELETON_MINION = preload("res://entity/skeleton_minion.tscn")
 
 
 var alive: bool = true
+var can_pause: bool = true
 
 var SPEED = 150.0
 
@@ -269,6 +270,7 @@ func level_up() -> void:
 	$LevelUpSprite.play("default")
 	await $LevelUpSprite.animation_finished
 
+	can_pause = false
 	level_up_menu.show()
 	get_tree().paused = true
 
@@ -303,6 +305,7 @@ func get_upgrade_text(upgrade_code: String, upgrade_value: int) -> String:
 
 
 func _on_level_up_menu_level_up_option_selected(option_num: int) -> void:
+	can_pause = true
 	level_up_menu.hide()
 	var upgrade_code = upgrade_options[option_num][0]
 	var upgrade_value = upgrade_options[option_num][1]

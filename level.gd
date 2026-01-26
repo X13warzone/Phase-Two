@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 	fps_label.text = "FPS: %f" % Engine.get_frames_per_second()
 	
 	if Input.is_action_just_pressed("cancel"):
-		if boss.alive:
+		if boss.alive and boss.can_pause:
 			get_tree().paused = !get_tree().paused
 			pause_menu.visible = get_tree().paused
 			leaderboard_display.visible = pause_menu.visible
