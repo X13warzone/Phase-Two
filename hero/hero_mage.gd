@@ -10,7 +10,7 @@ func _process(delta: float) -> void:
 		if boss_in_range and action == ACTION.FORWARD and !raycast_to_boss():
 			channel_bar.show()
 			action = ACTION.CHANNEL
-			attack_timer.start(2)
+			attack_timer.start(1.5)
 			velocity = Vector2.ZERO
 			weapon_sprite.play("attack")
 		elif action == ACTION.CHANNEL:

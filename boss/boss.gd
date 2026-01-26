@@ -172,8 +172,8 @@ func summon_skeletons() -> void:
 		c = SKELETON_MINION.instantiate()
 		$Summons.add_child(c)
 		c.position = summon_pos + position
-		c.MAX_HP *= MAX_HP / 50.0  ## Scales 2x with our max hp
-		c.melee_damage *= melee_damage * 0.5  ## Scales 0.5x with our phys dmg
+		c.MAX_HP *= (1 + (MAX_HP - 100.0) * 3.0 + HP_REGEN * 3.0)
+		c.melee_damage *= (melee_damage * 0.4 + magic_damage * 0.4)
 
 
 func take_hit(dmg: float, dmg_type: DMG_TYPE) -> void:
@@ -217,7 +217,7 @@ func level_up() -> void:
 		all_options = [
 			["MAXHP", [5, 5]],
 			["REGEN", [1, 1]],
-			["PYDEF", [1, 2]],
+			["PYDEF", [2, 4]],
 			["PYDMG", [1, 1]],
 			["MSPED", [5, 10]]
 		]
@@ -230,9 +230,9 @@ func level_up() -> void:
 	elif level < 7:
 		all_options = [
 			["MAXHP", [6, 8]],
-			["REGEN", [1, 1]],
-			["PYDEF", [1, 3]],
-			["MGDEF", [1, 3]],
+			["REGEN", [1, 3]],
+			["PYDEF", [4, 6]],
+			["MGDEF", [4, 6]],
 			["PYDMG", [1, 2]],
 			["MGDMG", [1, 2]],
 			["SKLCD", [1, 5]],
@@ -248,8 +248,8 @@ func level_up() -> void:
 		all_options = [
 			["MAXHP", [8, 12]],
 			["REGEN", [2, 5]],
-			["PYDEF", [2, 5]],
-			["MGDEF", [2, 5]],
+			["PYDEF", [5, 10]],
+			["MGDEF", [5, 10]],
 			["PYDMG", [1, 2]],
 			["MGDMG", [1, 2]],
 			["SKLCD", [3, 9]],
@@ -287,9 +287,9 @@ func get_upgrade_text(upgrade_code: String, upgrade_value: int) -> String:
 		"PYDMG":
 			res = "(SHARPEN MACE)\n\nINCREASE PHYSICAL DAMAGE"
 		"MGDMG":
-			res = "(READ A BOOK)\n\nINCREASE MAGICAL DAMAGE"
+			res = "(ADD EXPIRED POISON)\n\nINCREASE MAGICAL DAMAGE"
 		"RMGP":
-			res = "(REMEMBER SOME MAGIC)\n\nUNLOCK RANGED MAGIC ATTACK (Q)"
+			res = "(READ A BOOK)\n\nUNLOCK RANGED MAGIC ATTACK (Q)"
 		"SMNS":
 			if unlock_summon_skeleton:
 				res = "(THE MORE THE MERRIER)\n\nSUMMON AN ADDITIONAL SKELETON"

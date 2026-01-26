@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 func attack() -> void:
 	var c = ARCHER_ARROW.instantiate()
 	c.position = position
-	c.rotation = position.angle_to_point(GlobalScript.get_boss_position())
+	c.rotation = position.angle_to_point(GlobalScript.get_boss_position()) + randf_range(-0.2, 0.2)
 	projectiles.add_child(c)
 	c.damage *= melee_damage
 

@@ -87,14 +87,15 @@ func attack() -> void:
 
 
 func die() -> void:
-	GlobalScript.heroes_slain += 1
-	hide()
-	alive = false
-	var c = XP_ORB.instantiate()
-	add_sibling(c)
-	c.position = position
-	
-	queue_free()
+	if alive:
+		alive = false
+		GlobalScript.heroes_slain += 1
+		hide()
+		var c = XP_ORB.instantiate()
+		add_sibling(c)
+		c.position = position
+		
+		queue_free()
 
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
@@ -107,3 +108,8 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 
 func _on_kb_timer_timeout() -> void:
 	action = ACTION.FORWARD
+
+
+func heal(life_gained: float) -> void:
+	super.heal(life_gained)
+	hp_bar.value = curr_hp * 100.0 / MAX_HP
