@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://35j2f3m84akq" path="res://assets/sprites/purple_grad_square.png" id="5_km5ld"]
 [ext_resource type="PackedScene" uid="uid://est7hjmta3ti" path="res://menu/options_menu.tscn" id="5_n6hdu"]
 [ext_resource type="AudioStream" uid="uid://cbrm4wsd4hx2c" path="res://assets/sounds/NotJamMusicPack_ogg/Loopable_ogg/MeltdownTheme_Loopable.ogg" id="6_1ainy"]
-[ext_resource type="Script" uid="uid://b05anbaavbp3j" path="res://leaderboard/leaderboard_display.gd" id="7_8cye3"]
-[ext_resource type="Texture2D" uid="uid://btu7n47abyx2c" path="res://assets/sprites/Boss/skill_icon.png" id="8_2orkt"]
+[ext_resource type="PackedScene" uid="uid://b311g40kxdbne" path="res://leaderboard/leaderboard_submit.tscn" id="7_i2t4f"]
+[ext_resource type="PackedScene" uid="uid://ceyj54f5hulea" path="res://boss/death_menu.tscn" id="8_8cye3"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vonw3"]
 vertices = PackedVector2Array(1344.8281, -83.02344, 1330.1563, 813.02344, 1222, 297, 1222, 21, -101.28125, -85.97656, 658, 21, 1222, 681, -127.6875, 816.96875, 658, 681, 582, 681, 50, 681, 50, 373, 582, 73, 658, 73, 582, 629, 582, 21, 50, 21, 102, 297, 102, 73, 1170, 73, 1170, 297, 658, 629, 1170, 373, 1170, 629, 102, 629, 102, 373, 50, 297, 1222, 373)
@@ -512,6 +512,7 @@ shape = SubResource("RectangleShape2D_i2t4f")
 process_mode = 1
 
 [node name="FPSLabel" type="Label" parent="CanvasLayer"]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -521,10 +522,6 @@ offset_top = 20.0
 offset_right = 1139.0
 offset_bottom = 64.0
 text = "FOOLISH HEROES SLAIN"
-
-[node name="WaveLabel" type="Label" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 23.0
 
 [node name="PauseMenu" type="Control" parent="CanvasLayer"]
 process_mode = 2
@@ -603,75 +600,16 @@ patch_margin_top = 4
 patch_margin_right = 4
 patch_margin_bottom = 4
 
-[node name="LeaderboardDisplay" type="Control" parent="CanvasLayer/PauseMenu"]
-anchors_preset = 0
-offset_left = 260.0
-offset_top = -100.0
-offset_right = 560.0
-offset_bottom = 300.0
-script = ExtResource("7_8cye3")
-leaderboard_internal_name = "main_leaderboard"
+[node name="LeaderboardDisplay" parent="CanvasLayer" instance=ExtResource("7_i2t4f")]
+process_mode = 3
+visible = false
+offset_left = 765.0
+offset_top = 160.0
+offset_right = 1065.0
+offset_bottom = 560.0
 
-[node name="TextureRect" type="NinePatchRect" parent="CanvasLayer/PauseMenu/LeaderboardDisplay"]
-modulate = Color(1, 1, 0.6627451, 1)
-z_index = -6
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_2orkt")
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PauseMenu/LeaderboardDisplay"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu/LeaderboardDisplay/MarginContainer"]
-layout_mode = 2
-
-[node name="LeaderboardName" type="Label" parent="CanvasLayer/PauseMenu/LeaderboardDisplay/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "LEADERBOARD"
-horizontal_alignment = 1
-
-[node name="InfoLabel" type="Label" parent="CanvasLayer/PauseMenu/LeaderboardDisplay/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "YOUR ENTRY"
-horizontal_alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/PauseMenu/LeaderboardDisplay/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Entries" type="VBoxContainer" parent="CanvasLayer/PauseMenu/LeaderboardDisplay/MarginContainer/VBoxContainer/ScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Username" type="TextEdit" parent="CanvasLayer/PauseMenu/LeaderboardDisplay/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-placeholder_text = "Your Username"
-
-[node name="SubmitButton" type="Button" parent="CanvasLayer/PauseMenu/LeaderboardDisplay/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "SUBMIT"
+[node name="DeathMenu" parent="CanvasLayer" instance=ExtResource("8_8cye3")]
+visible = false
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 process_mode = 1
@@ -686,4 +624,3 @@ process_mode = 1
 [connection signal="finished" from="BGMusic" to="." method="_on_bg_music_finished"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/PauseMainButton" to="." method="_on_pause_main_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/VBoxContainer/PauseBackButton" to="." method="_on_pause_back_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/PauseMenu/LeaderboardDisplay/MarginContainer/VBoxContainer/SubmitButton" to="CanvasLayer/PauseMenu/LeaderboardDisplay" method="_on_submit_button_pressed"]

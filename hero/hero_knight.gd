@@ -8,8 +8,10 @@ func _process(delta: float) -> void:
 		if boss_in_range and attack_timer.is_stopped():
 			action = ACTION.ATTACK
 			attack_timer.start(1)
-			attack()
 	elif action == ACTION.ATTACK:
+		if attack_timer.is_stopped():
+			attack()
+			action = ACTION.FORWARD
 		if !boss_in_range:
 			action = ACTION.FORWARD
 

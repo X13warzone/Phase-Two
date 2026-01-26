@@ -5,8 +5,9 @@ extends Node
 @onready var score_1_label: Label = $CanvasLayer/Score1Label
 @onready var hero_party: Node2D = $HeroParty
 @onready var boss: CharacterBody2D = $Boss
-@onready var wave_label: Label = $CanvasLayer/WaveLabel
 @onready var pause_menu: Control = $CanvasLayer/PauseMenu
+@onready var leaderboard_display: Control = $CanvasLayer/LeaderboardDisplay
+@onready var death_menu: CenterContainer = $CanvasLayer/DeathMenu
 
 
 const HERO_MAGE = preload("res://hero/hero_mage.tscn")
@@ -28,6 +29,7 @@ var wave: int = 0
 
 func _ready() -> void:
 	GlobalScript.heroes_slain_updated.connect(_update_score)
+	boss.died.connect(_on_boss_died)
 	GlobalScript.heroes_slain = 0
 
 
@@ -36,8 +38,10 @@ func _process(delta: float) -> void:
 	fps_label.text = "FPS: %f" % Engine.get_frames_per_second()
 	
 	if Input.is_action_just_pressed("cancel"):
-		get_tree().paused = !get_tree().paused
-		pause_menu.visible = get_tree().paused
+		if boss.alive:
+			get_tree().paused = !get_tree().paused
+			pause_menu.visible = get_tree().paused
+			leaderboard_display.visible = pause_menu.visible
 	
 	if get_tree().get_node_count_in_group("Hero") <= 0:
 		wave += 1
@@ -130,3 +134,9 @@ func _on_pause_back_button_pressed() -> void:
 func _on_pause_main_button_pressed() -> void:
 	get_tree().paused = false
 	SceneTransition.change_scene("res://menu/main_menu.tscn")
+
+
+func _on_boss_died() -> void:
+	get_tree().paused = true
+	death_menu.show()
+	leaderboard_display.show()

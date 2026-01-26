@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceyj54f5hulea"]
+
+[ext_resource type="Script" uid="uid://b41l3uluic1i8" path="res://boss/death_menu.gd" id="1_wn8ko"]
+[ext_resource type="Texture2D" uid="uid://bhi8jw5s6qxuo" path="res://assets/sprites/white_grad_square.png" id="2_jqvwj"]
+[ext_resource type="Texture2D" uid="uid://35j2f3m84akq" path="res://assets/sprites/purple_grad_square.png" id="3_880i4"]
+
+[node name="DeathMenu" type="CenterContainer"]
+process_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_wn8ko")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Panel"]
+layout_mode = 2
+texture = ExtResource("2_jqvwj")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOU'VE BEEN SLAIN...
+BUT YOUR ROLE AS THE
+BOSS IS NOT FINISHED YET!
+"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "RETURN TO CRUSH
+MORE HEROES"
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Panel/MarginContainer/VBoxContainer/RestartButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_880i4")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

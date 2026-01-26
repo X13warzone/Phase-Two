@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cbbremwv48hjp"]
+[gd_scene load_steps=51 format=3 uid="uid://cbbremwv48hjp"]
 
 [ext_resource type="Script" uid="uid://b61qtanarum40" path="res://boss/boss.gd" id="1_b105h"]
 [ext_resource type="Texture2D" uid="uid://b5jeqkcsryfjk" path="res://assets/sprites/Boss/boss1.png" id="2_270ai"]
@@ -9,9 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bp0ty5n346bjr" path="res://assets/sprites/Boss/boss_flame.png" id="4_q1lp7"]
 [ext_resource type="Script" uid="uid://c8v1tvaoq28pm" path="res://boss/level_up_menu.gd" id="5_205ta"]
 [ext_resource type="Texture2D" uid="uid://35j2f3m84akq" path="res://assets/sprites/purple_grad_square.png" id="6_3bina"]
-[ext_resource type="Texture2D" uid="uid://bhi8jw5s6qxuo" path="res://assets/sprites/white_grad_square.png" id="7_6w25r"]
 [ext_resource type="AudioStream" uid="uid://dufkxw2vsms5l" path="res://assets/sounds/8 bit evolve.ogg" id="7_bfjv4"]
-[ext_resource type="Script" uid="uid://b41l3uluic1i8" path="res://boss/death_menu.gd" id="7_yerig"]
 [ext_resource type="AudioStream" uid="uid://c2s0yedact4cw" path="res://assets/sounds/mace_swing.ogg" id="9_3bina"]
 [ext_resource type="AudioStream" uid="uid://c0usa6ftjgivp" path="res://assets/sounds/hammer strike.ogg" id="10_naudl"]
 [ext_resource type="Script" uid="uid://bu0wird5omrpp" path="res://boss/skill_cooldown_display.gd" id="11_bh0xc"]
@@ -879,7 +877,6 @@ offset_left = 10.0
 offset_top = 13.0
 offset_right = 90.0
 offset_bottom = 21.0
-value = 25.0
 nine_patch_stretch = true
 stretch_margin_left = 4
 stretch_margin_top = 4
@@ -1008,67 +1005,6 @@ PHYS DMG:
 MAG DMG:
 SKILL 1:
 SKILL 2:"
-
-[node name="DeathMenu" type="CenterContainer" parent="CanvasLayer"]
-process_mode = 3
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("7_yerig")
-
-[node name="Panel" type="PanelContainer" parent="CanvasLayer/DeathMenu"]
-layout_mode = 2
-
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/DeathMenu/Panel"]
-layout_mode = 2
-texture = ExtResource("7_6w25r")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/DeathMenu/Panel"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DeathMenu/Panel/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/DeathMenu/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "YOU'VE BEEN SLAIN...
-BUT YOUR ROLE AS THE
-BOSS IS NOT FINISHED YET!
-"
-horizontal_alignment = 1
-
-[node name="RestartButton" type="Button" parent="CanvasLayer/DeathMenu/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "RETURN TO CRUSH
-MORE HEROES"
-flat = true
-
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/DeathMenu/Panel/MarginContainer/VBoxContainer/RestartButton"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("6_3bina")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/DeathMenu"]
 
 [node name="SkillCooldownDisplay" type="Control" parent="CanvasLayer"]
 top_level = true
@@ -1215,4 +1151,3 @@ one_shot = true
 [connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button" to="CanvasLayer/LevelUpMenu" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button2" to="CanvasLayer/LevelUpMenu" method="_on_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/LevelUpMenu/CenterContainer/HBoxContainer/Button3" to="CanvasLayer/LevelUpMenu" method="_on_button_3_pressed"]
-[connection signal="pressed" from="CanvasLayer/DeathMenu/Panel/MarginContainer/VBoxContainer/RestartButton" to="CanvasLayer/DeathMenu" method="_on_restart_button_pressed"]

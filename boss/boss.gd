@@ -1,5 +1,6 @@
 extends Entity
 
+signal died
 
 enum ACTION {WALK, MELEE, MAGIC, SUMMON, STUNNED, IDLE}
 var action: ACTION = ACTION.WALK
@@ -14,7 +15,6 @@ var action: ACTION = ACTION.WALK
 @onready var stat_label: Label = $CanvasLayer/StatDisplay/Label
 @onready var mace_sweep_sfx: AudioStreamPlayer = $AttackHitbox/MaceSweepSFX
 @onready var mace_hit_sfx: AudioStreamPlayer = $AttackHitbox/MaceHitSFX
-@onready var death_menu: CenterContainer = $CanvasLayer/DeathMenu
 @onready var wall_checker: RayCast2D = $WallChecker
 @onready var hit_if_timer: Timer = $HitIFTimer
 @onready var mace_stab_sfx: AudioStreamPlayer = $AttackHitbox/MaceStabSFX
@@ -185,9 +185,8 @@ func take_hit(dmg: float, dmg_type: DMG_TYPE) -> void:
 
 func die() -> void:
 	if alive:
+		emit_signal("died")
 		alive = false
-		death_menu.show()
-		get_tree().paused = true
 
 """
 MAXHP - Max HP
