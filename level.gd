@@ -41,11 +41,13 @@ func _process(delta: float) -> void:
 	
 	if get_tree().get_node_count_in_group("Hero") <= 0:
 		wave += 1
+		GlobalScript.wave = wave
 		spawn_wave()
+		_update_score()
 
 
-func _update_score(heroes_slain) -> void:
-	score_1_label.text = "FOOLISH HEROES VANQUISHED: %d" % heroes_slain
+func _update_score() -> void:
+	score_1_label.text = "WAVE %d\nFOOLISH HEROES VANQUISHED: %d" % [wave, GlobalScript.heroes_slain]
 
 
 func spawn_unit(unit_name: String, location: Vector2) -> void:
@@ -101,10 +103,10 @@ func spawn_wave() -> void:
 		for hero in WAVES[wave][3]:
 			spawn_unit("Cleric", get_random_loc())
 	else:
-		var knights = randi_range(ceili(wave * 0.5), wave)
-		var archers = randi_range(ceili(wave * 0.4), ceili(wave * 0.9))
-		var mages = randi_range(floori(wave * 0.5), floori(wave * 0.9))
-		var clerics = randi_range(floori(wave * 0.4), ceili(wave * 0.8))
+		var knights = ceili(wave)
+		var archers = ceili(wave * 0.6)
+		var mages = floori(wave * 0.6)
+		var clerics = ceili(wave * 0.5)
 	
 		for hero in knights:
 			spawn_unit("Knight", get_random_loc())

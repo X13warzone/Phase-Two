@@ -1,7 +1,7 @@
 extends Entity
 
 
-enum ACTION {WALK, MELEE, MAGIC, SUMMON, STUNNED}
+enum ACTION {WALK, MELEE, MAGIC, SUMMON, STUNNED, IDLE}
 var action: ACTION = ACTION.WALK
 
 
@@ -23,6 +23,7 @@ var action: ACTION = ACTION.WALK
 @onready var skill_cooldown_display: Control = $CanvasLayer/SkillCooldownDisplay
 @onready var poison_prog: TextureProgressBar = $CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/MarginContainer2/PoisonProg
 @onready var skeleton_prog: TextureProgressBar = $CanvasLayer/SkillCooldownDisplay/CenterContainer/HBoxContainer/MarginContainer3/SkeletonProg
+@onready var boss_sprite_player: AnimationPlayer = $BossSpritePlayer
 
 
 const MAGIC_POOL = preload("res://projectile/magic_pool.tscn")
@@ -64,9 +65,9 @@ var skill_coolddown: int = 0:
 func _process(delta: float) -> void:
 	GlobalScript.set_boss_position(position)
 	if velocity.x < 0:
-		animated_sprite_2d.flip_h = true
+		$SpriteFlipper.play("flip_h_true")
 	elif velocity.x > 0:
-		animated_sprite_2d.flip_h = false
+		$SpriteFlipper.play("flip_h_false")
 
 	$AttackHitbox.rotation = (position.angle_to_point(get_viewport().get_mouse_position()))
 
@@ -96,8 +97,10 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if direction:
 		velocity = direction.normalized() * SPEED
+		play_anim("walk")
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, SPEED)
+		play_anim("idle", true)
 
 	move_and_slide()
 
@@ -351,3 +354,11 @@ func get_xp(xp_gain: int) -> void:
 func heal(life_gained: float) -> void:
 	super.heal(life_gained)
 	hp_bar.value = curr_hp * 100.0 / MAX_HP
+
+
+func play_anim(animation_name: StringName, override: bool = false) -> void:
+	if override:
+		boss_sprite_player.play(animation_name)
+	else:
+		if !boss_sprite_player.is_playing():
+			boss_sprite_player.play(animation_name)

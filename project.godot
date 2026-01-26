@@ -20,11 +20,16 @@ config/icon="res://icon.svg"
 GlobalScript="*res://global_script.gd"
 GlobalSettings="*res://settings.gd"
 SceneTransition="*res://scene_transition/scene_transition.tscn"
+Talo="*res://addons/talo/talo_manager.gd"
 
 [display]
 
 window/size/viewport_height=640
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/talo/plugin.cfg")
 
 [global_group]
 

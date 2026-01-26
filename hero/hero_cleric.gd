@@ -54,6 +54,7 @@ func attack() -> void:
 		c.rotation = position.angle_to_point(h.position)
 		projectiles.add_child(c)
 		c.true_parent = self
+		c.damage *= magic_damage
 
 
 func _on_attack_range_body_entered(body: Node2D) -> void:

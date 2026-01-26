@@ -4,6 +4,7 @@ extends Node
 @onready var menu_buttons: CenterContainer = $MenuButtons
 @onready var credits_menu: Control = $CreditsMenu
 @onready var options_menu: CenterContainer = $OptionsMenu
+@onready var leaderboard_menu: Control = $LeaderboardMenu
 
 
 func _ready() -> void:
@@ -41,4 +42,14 @@ func _on_bg_music_finished() -> void:
 
 func _on_credits_back_button_pressed() -> void:
 	credits_menu.hide()
+	menu_buttons.show()
+
+
+func _on_leaderboard_button_pressed() -> void:
+	leaderboard_menu.show()
+	menu_buttons.hide()
+
+
+func _on_leaderboard_back_button_pressed() -> void:
+	leaderboard_menu.hide()
 	menu_buttons.show()
