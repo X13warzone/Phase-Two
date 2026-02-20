@@ -1,16 +1,9 @@
-# umgmc26sgj
-University of Melbourne Game Maker's Club Summer Game Jam of 2026
+Made for the University of Melbourne Game Maker's Club Summer Game Jam of 2026
 
-# plan stuff dont look
+# Phase Two
+Submission available at: https://x13warzone.itch.io/phase-two
 
-
-todo:
-- options menu for controls
-- add ultimate
-- more sfx for heroes?
-
-
-
+Waves of Heroes stampede towards your castle. Fend them off with your great mace, magic, and minions!
 
 Credits:
 Scene transition: https://youtu.be/yZQStB6nHuI
